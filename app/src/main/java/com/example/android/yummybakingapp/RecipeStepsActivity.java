@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
+import com.example.android.yummybakingapp.model.Steps;
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener {
 
@@ -20,7 +21,7 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
     }
 
     @Override
-    public void onStepSelected(int position) {
-        Toast.makeText(this, "Position clicked =" + position, Toast.LENGTH_SHORT).show();
+    public void onStepSelected(Steps step) {
+        Toast.makeText(this, "Position clicked =" + step, Toast.LENGTH_SHORT).show();
     }
 }

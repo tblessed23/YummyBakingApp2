@@ -117,6 +117,8 @@ public class RecipeListFragment extends Fragment  implements LoaderManager.Loade
     }
 
 
+
+
     /*This Method sets the data from the Recyclerview*/
     private void setRecyclerView() {
         // Find a reference to the {@link RecyclerView} in the layout

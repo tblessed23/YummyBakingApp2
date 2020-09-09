@@ -2,7 +2,6 @@ package com.example.android.yummybakingapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
-import com.example.android.yummybakingapp.fragments.RecipeListFragment;
-import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
-import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
-
-
-
+public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
     private final Context mContext;
-    private List<Recipes> mValues;
-    private List<Steps> mSteps;
+    private List<Steps> mDataset;
     private Gson gson;
-
     //private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
 
@@ -61,18 +52,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      and the specification
      * for the ListItemClickListener.
      *
-     * @param recipes Items to display in list
+     * @param steps Items to display in list
      */
 
 
-    public void setRecipeData(List<Recipes> recipes) {
-        mValues = recipes;
+    public void setRecipeData(List<Steps> steps) {
+        mDataset = steps;
         notifyDataSetChanged();
     }
 
 
     public interface ListItemClickListener {
-        void onListItemClick(int mSteps);
+        void onListItemClick(int mDataset);
     }
 
     /**
@@ -80,14 +71,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      and the specification
      * for the ListItemClickListener.
      *
-     * @param recipes Items to display in list
+     * @param steps Items to display in list
      */
 
 
-    public RecipeAdapter(Context context,
-                         ArrayList<Recipes> recipes) {
+    public RecipeStepsAdapter(Context context,
+                              ArrayList<Steps> steps) {
         mContext = context;
-        mValues = recipes;
+        mDataset = steps;
         //this.mOnClickListener = mOnClickListener;
         //mTwoPane = twoPane;
     }
@@ -107,15 +98,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
-        final Recipes recipe = mValues.get(position);
-        TextView textViewAgain = holder.mContentView;
-        textViewAgain.setText(recipe.getmName());
+    public void onBindViewHolder(final RecipeStepsAdapter.RecipeStepsViewHolder holder, final int position) {
+        final Steps steps = mDataset.get(position);
+        TextView textViewAgain = holder.mStepsTextView;
+        textViewAgain.setText(steps.getmShortDescription());
 
-        TextView servingsTextView = holder.mServingsView;
-        servingsTextView.setText(Integer.toString(recipe.getmServings()));
 
-        holder.firstCardview.setOnClickListener(new View.OnClickListener() {
+        holder.secondCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -139,22 +128,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 //                context.startActivity(intent);
 
 
-//                Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-//                intent.putExtra("Steps", mValues.get(position));
-//                mContext.startActivity(intent);
+
 
 //                mSteps= mValues.get(position).getmSteps();
 //                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
 //                gson = new Gson();
 //                String stepJson = gson.toJson(mSteps);
 //                intent.putExtra("Steps", stepJson);
-//                intent.putParcelableArrayListExtra("ArrayList", (ArrayList) recipe.getmSteps());
 //                mContext.startActivity(intent);
-                RecipeStepsFragment fragment = new RecipeStepsFragment();
-                Bundle args = new Bundle();
-                args.putString("Steps", gson.toJson(mSteps));
-                fragment.setArguments(args);
-
 
             }
         });
@@ -171,27 +152,25 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mDataset.size();
     }
 
-    public void clear(List<Recipes> data) {
-        mValues = data;
+    public void clear(List<Steps> data) {
+        mDataset = data;
         notifyDataSetChanged();
     }
 
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
-        final TextView mContentView;
-        final TextView mServingsView;
-        final CardView firstCardview;
+    class RecipeStepsViewHolder extends RecyclerView.ViewHolder {
 
+        final CardView secondCardview;
+        final TextView mStepsTextView;
 
-        RecipeViewHolder(View view) {
+        RecipeStepsViewHolder(View view) {
             super(view);
-            mContentView = view.findViewById(R.id.content);
-            mServingsView = view.findViewById(R.id.id_text);
-            firstCardview = view.findViewById(R.id.first_cardview);
 
+            secondCardview = view.findViewById(R.id.fragment_recipe_steps_id);
+            mStepsTextView = view.findViewById(R.id.content_text_recipestepsfragment);
 
             //Call setOnClickListener on the view passed into the constructor
             //(use 'this' as the OnClickListener)
@@ -225,18 +204,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     @Override
-    public RecipeViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public RecipeStepsAdapter.RecipeStepsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_list_content;
+        int layoutIdForListItem = R.layout.fragment_recipe_steps;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
         View view = inflater.inflate(layoutIdForListItem, viewGroup,
                 shouldAttachToParentImmediately);
 
-        RecipeViewHolder vh = new RecipeViewHolder(view);
+        RecipeStepsAdapter.RecipeStepsViewHolder vh = new RecipeStepsAdapter.RecipeStepsViewHolder(view);
 
         return vh;
     }
 }
+
 
 
