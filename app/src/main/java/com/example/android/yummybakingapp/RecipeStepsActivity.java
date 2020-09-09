@@ -18,13 +18,6 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
-        Bundle data = getIntent().getExtras();
-        recipe = (Recipes) data.getParcelable("Recipe");
-
-       Bundle bundle = new Bundle();
-        if (!(recipe == null))
-            bundle.putParcelable("Recipe", recipe);
-
         getSupportFragmentManager().beginTransaction()
               .replace(R.id.detail_fragment, new RecipeStepsFragment())
                 .commit();
