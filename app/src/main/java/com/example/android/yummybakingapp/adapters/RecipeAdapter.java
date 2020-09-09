@@ -143,17 +143,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 //                intent.putExtra("Steps", mValues.get(position));
 //                mContext.startActivity(intent);
 
-//                mSteps= mValues.get(position).getmSteps();
-//                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
-//                gson = new Gson();
-//                String stepJson = gson.toJson(mSteps);
-//                intent.putExtra("Steps", stepJson);
-//                intent.putParcelableArrayListExtra("ArrayList", (ArrayList) recipe.getmSteps());
-//                mContext.startActivity(intent);
-                RecipeStepsFragment fragment = new RecipeStepsFragment();
-                Bundle args = new Bundle();
-                args.putString("Steps", gson.toJson(mSteps));
-                fragment.setArguments(args);
+                mSteps= mValues.get(position).getmSteps();
+                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
+                gson = new Gson();
+                String stepJson = gson.toJson(mSteps);
+                intent.putExtra("Steps", stepJson);
+                mContext.startActivity(intent);
+//                RecipeStepsFragment fragment = new RecipeStepsFragment();
+//                Bundle args = new Bundle();
+//                args.putString("Steps", gson.toJson(mSteps));
+//                fragment.setArguments(args);
+
 
 
             }

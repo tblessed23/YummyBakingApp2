@@ -92,8 +92,10 @@ OnStepsClickListener mStepsListener;
         super.onCreate(savedInstanceState);
 
                 if (getArguments() != null) {
-            steps = getArguments().getString("Steps");
+            steps = getArguments().getParcelable("Steps");
        }
+
+
     }
 
     @Override
@@ -112,26 +114,12 @@ OnStepsClickListener mStepsListener;
 
 
 //        // Get a reference to the CardView in the fragment layout
-       final CardView cardView = (CardView) rootView.findViewById(R.id.fragment_recipe_steps_id);
+       //final CardView cardView = (CardView) rootView.findViewById(R.id.fragment_recipe_steps_id);
       //  final GridView gridView = (GridView) rootView.findViewById(R.id.images_grid_view);
 
-        // If a list of image ids exists, set the image resource to the correct item in that list
-        // Otherwise, create a Log statement that indicates that the list was not found
-//        if(mImageIds != null){
-//            // Set the image resource to the list item at the stored index
-//            imageView.setImageResource(mImageIds.get(mListIndex));
-//
-//        } else {
-//            Log.v(TAG, "This fragment has a null list of image id's");
-//        }
-
-
-
-//        stepsTextview = (GridView) rootView.findViewById(R.id.images_grid_view);
-//        stepsTextview.setText(steps);
 
         // Set a click listener on the cardView and trigger the callback onStepSelected when an item is clicked
-        cardView.setOnClickListener(new View.OnClickListener() {
+        recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
