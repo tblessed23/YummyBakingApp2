@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipes extends ArrayList<String> implements Parcelable {
+public class Recipes implements Parcelable {
 
     public static final List<Recipes> ITEMS = new ArrayList<Recipes>();
 
@@ -104,14 +104,16 @@ public class Recipes extends ArrayList<String> implements Parcelable {
     //Parceling constructor
     public Recipes(Parcel in) {
 
-        ingredients = new ArrayList<Ingredients>();
-        steps = new ArrayList<Steps>();
+
 
         this.id = in.readInt();
         this.name= in.readString();
-        in.readList(ingredients, R.class.getClassLoader());
-        in.readList(steps, R.class.getClassLoader());
+        this.ingredients = new ArrayList<>();
+        in.readTypedList(this.ingredients, Ingredients.CREATOR);
+        this.steps = new ArrayList<>();
+        in.readTypedList(this.steps, Steps.CREATOR);
         this.servings = in.readInt();
+
 
     }
 

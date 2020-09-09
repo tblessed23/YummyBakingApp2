@@ -17,15 +17,15 @@ public class Steps implements Parcelable {
     };
 
     @SerializedName("id")
-    private int id;
+    public static int id;
     @SerializedName("shortDescription")
-    private String shortDescription;
+    public static String shortDescription;
     @SerializedName("description")
-    private String description;
+    public static String description;
     @SerializedName("videoURL")
-    private String videoURL;
+    public static String videoURL;
     @SerializedName("thumbnailURL")
-    private String thumbnailURL;
+    public static String thumbnailURL;
 
     /**
      * No args constructor for use in serialization

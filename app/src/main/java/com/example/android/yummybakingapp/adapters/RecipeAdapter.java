@@ -1,6 +1,7 @@
 package com.example.android.yummybakingapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.yummybakingapp.R;
+import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 import com.google.gson.Gson;
@@ -20,12 +22,13 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
 
-    // private final Context mContext;
+
     private final Context mContext;
     private List<Recipes> mValues;
     private List<Steps> mSteps;
     private Gson gson;
-    private ListItemClickListener mOnClickListener;
+
+    //private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -66,7 +69,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     public interface ListItemClickListener {
-        void onListItemClick(int mValues);
+        void onListItemClick(int mSteps);
     }
 
     /**
@@ -82,6 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                          ArrayList<Recipes> recipes) {
         mContext = context;
         mValues = recipes;
+        //this.mOnClickListener = mOnClickListener;
         //mTwoPane = twoPane;
     }
 
@@ -101,25 +105,51 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      */
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
-        Recipes recipe = mValues.get(position);
+        final Recipes recipe = mValues.get(position);
         TextView textViewAgain = holder.mContentView;
         textViewAgain.setText(recipe.getmName());
 
+        TextView servingsTextView = holder.mServingsView;
+        servingsTextView.setText(Integer.toString(recipe.getmServings()));
 
-//        holder.mContentView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
-//
-//                mSteps = mValues.get(position).getmSteps();
-//                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
+        holder.firstCardview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                mSteps = recipe.getmSteps();
 //                gson = new Gson();
 //                String stepJson = gson.toJson(mSteps);
-//                intent.putExtra("Steps", stepJson);
-//                mContext.startActivity(intent);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("steps", stepJson);
+//                RecipeStepsFragment myObj = new RecipeStepsFragment();
+//                myObj.setArguments(bundle);
+
+                ;
+//                mSteps = recipe.getmSteps();
+//                intent = new Intent(this, RecipeStepsFragment.class);
+//                gson = new Gson();
 //
-//            }
-//        });;
+//                String stepJson = gson.toJson(stepList);
+//
+//                intent.putExtra(Constants.KEY_STEPS, stepJson);
+//
+//                context.startActivity(intent);
+
+
+//                Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
+//                intent.putExtra("Steps", mValues.get(position));
+//                mContext.startActivity(intent);
+
+                mSteps= mValues.get(position).getmSteps();
+                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
+                gson = new Gson();
+                String stepJson = gson.toJson(mSteps);
+                intent.putExtra("Steps", stepJson);
+                intent.putParcelableArrayListExtra("ArrayList", (ArrayList) recipe.getmSteps());
+                mContext.startActivity(intent);
+
+            }
+        });
     }
 
 
@@ -142,28 +172,30 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
-        //final TextView mIdView;
+    class RecipeViewHolder extends RecyclerView.ViewHolder {
         final TextView mContentView;
-        private CardView firstCardview;
+        final TextView mServingsView;
+        final CardView firstCardview;
+
 
         RecipeViewHolder(View view) {
             super(view);
-            //mIdView = (TextView) view.findViewById(R.id.id_text);
             mContentView = view.findViewById(R.id.content);
+            mServingsView = view.findViewById(R.id.id_text);
             firstCardview = view.findViewById(R.id.first_cardview);
+
 
             //Call setOnClickListener on the view passed into the constructor
             //(use 'this' as the OnClickListener)
-            view.setOnClickListener(this);
+            //view.setOnClickListener(this);
         }
 
 
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            mOnClickListener.onListItemClick(position);
-        }
+//        @Override
+//        public void onClick(View v) {
+//            int position = getAdapterPosition();
+//            mOnClickListener.onListItemClick(position);
+//        }
     }
     /**
      *
@@ -197,7 +229,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         return vh;
     }
-
-
 }
+
 

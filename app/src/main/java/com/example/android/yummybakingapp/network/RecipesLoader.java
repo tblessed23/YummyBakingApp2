@@ -8,6 +8,8 @@ import androidx.loader.content.AsyncTaskLoader;
 import com.example.android.yummybakingapp.model.Recipes;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipesLoader extends AsyncTaskLoader<List<Recipes>> {
@@ -16,6 +18,7 @@ public class RecipesLoader extends AsyncTaskLoader<List<Recipes>> {
 
     public RecipesLoader(@NonNull Context context) {
         super(context);
+
     }
 
     @Override
