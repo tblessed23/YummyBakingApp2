@@ -119,21 +119,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View v) {
 
-
-//               Bundle arguments = new Bundle();
-//                arguments.putString("Steps", String.valueOf(mSteps));
-//                arguments.putStringArrayList("Recipes",(ArrayList) recipe.getmSteps());
-//               RecipeStepsFragment fragment = new RecipeStepsFragment();
-//                fragment.setArguments(arguments);
-
                 RecipeStepsFragment fragment = new RecipeStepsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
                 bundle.putParcelable("Recipe", recipe);
                 fragment.setArguments(bundle);
-
-//                intent.putParcelableArrayListExtra("key", ArrayList<T extends Parcelable> list);
-//                startActivity(intent);
 
             }
         });

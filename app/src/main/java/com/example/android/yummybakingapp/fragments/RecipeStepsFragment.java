@@ -1,6 +1,7 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -40,7 +41,7 @@ private List<Recipes> mValues;
 private List<Steps> mSteps;
 private RecyclerView recyclerView;
 private RecyclerView.LayoutManager layoutManager;
-private RecipeAdapter mAdapter;
+private RecipeStepsAdapter mAdapter;
 
 
 //Define a new interface that triggers a callback to the host activity
@@ -94,8 +95,9 @@ OnStepsClickListener mStepsListener;
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-           mValues = getArguments().getParcelableArrayList("Recipes");
+            mValues = getArguments().getParcelableArrayList("Recipes");
         }
+
 
 
     }
@@ -106,9 +108,6 @@ OnStepsClickListener mStepsListener;
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
         //assert getArguments() != null;
-//        if (getArguments() != null) {
-//            recipe = getArguments().getParcelable("Recipes");
-//        }
 
 
         //  // Find a reference to the {@link RecyclerView} in the layout
@@ -116,7 +115,7 @@ OnStepsClickListener mStepsListener;
         layoutManager = new GridLayoutManager(getActivity(), 1, RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeAdapter(getActivity(), new ArrayList<Recipes>());
+        mAdapter = new RecipeStepsAdapter(getActivity(), new ArrayList<Steps>());
         recyclerView.setAdapter(mAdapter);
 
 
