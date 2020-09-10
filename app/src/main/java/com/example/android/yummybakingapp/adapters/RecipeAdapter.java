@@ -128,9 +128,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
                 RecipeStepsFragment fragment = new RecipeStepsFragment();
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("Recipes", (Parcelable) recipe.getmSteps());
+                bundle.putParcelableArrayList("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
+                bundle.putParcelable("Recipe", recipe);
                 fragment.setArguments(bundle);
 
+//                intent.putParcelableArrayListExtra("key", ArrayList<T extends Parcelable> list);
+//                startActivity(intent);
 
             }
         });
