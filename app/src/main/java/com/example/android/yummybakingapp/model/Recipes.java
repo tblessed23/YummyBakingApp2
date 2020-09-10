@@ -103,18 +103,13 @@ public class Recipes implements Parcelable {
 
     //Parceling constructor
     public Recipes(Parcel in) {
-
-
-
         this.id = in.readInt();
         this.name= in.readString();
         this.ingredients = new ArrayList<>();
-        in.readTypedList(this.ingredients, Ingredients.CREATOR);
+        in.readList(ingredients,Ingredients.class.getClassLoader());
         this.steps = new ArrayList<>();
-        in.readTypedList(this.steps, Steps.CREATOR);
+        in.readList(steps,Steps.class.getClassLoader());
         this.servings = in.readInt();
-
-
     }
 
     @Override

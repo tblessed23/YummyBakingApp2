@@ -40,6 +40,7 @@ private List<Steps> mSteps;
 private RecyclerView recyclerView;
 private RecyclerView.LayoutManager layoutManager;
 private RecipeStepsAdapter mAdapter;
+private Recipes recipe;
 
 //Define a new interface that triggers a callback to the host activity
 OnStepsClickListener mStepsListener;
@@ -91,9 +92,7 @@ OnStepsClickListener mStepsListener;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-                if (getArguments() != null) {
-            steps = getArguments().getParcelable("Steps");
-       }
+
 
 
     }
@@ -103,18 +102,26 @@ OnStepsClickListener mStepsListener;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
+        //assert getArguments() != null;
+//        if (getArguments() != null) {
+//            recipe = getArguments().getParcelable("Recipes");
+//        }
+
+        if (getArguments() != null) {
+            recipe = getArguments().getParcelable("Recipes");
+        }
 
         //  // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         layoutManager = new GridLayoutManager(getActivity(), 1, RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeStepsAdapter(getActivity(), new ArrayList<Steps>());
+        mAdapter = new RecipeStepsAdapter(getActivity(), recipe.getmSteps());
         recyclerView.setAdapter(mAdapter);
 
 
 //        // Get a reference to the CardView in the fragment layout
-       //final CardView cardView = (CardView) rootView.findViewById(R.id.fragment_recipe_steps_id);
+
       //  final GridView gridView = (GridView) rootView.findViewById(R.id.images_grid_view);
 
 

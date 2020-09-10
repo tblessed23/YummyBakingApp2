@@ -76,7 +76,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
 
     public RecipeStepsAdapter(Context context,
-                              ArrayList<Steps> steps) {
+                              List<Steps> steps) {
         mContext = context;
         mDataset = steps;
         //this.mOnClickListener = mOnClickListener;

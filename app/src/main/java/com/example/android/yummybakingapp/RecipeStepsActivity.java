@@ -11,12 +11,13 @@ import com.example.android.yummybakingapp.model.Steps;
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener {
 
-    //Variables to store the values of the Steps
-    private Recipes recipe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
+
+
 
         getSupportFragmentManager().beginTransaction()
               .replace(R.id.detail_fragment, new RecipeStepsFragment())

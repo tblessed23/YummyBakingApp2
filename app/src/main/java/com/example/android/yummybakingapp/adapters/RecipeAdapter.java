@@ -3,6 +3,7 @@ package com.example.android.yummybakingapp.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
-import com.example.android.yummybakingapp.fragments.RecipeListFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
@@ -85,7 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     public RecipeAdapter(Context context,
-                         ArrayList<Recipes> recipes) {
+                        ArrayList<Recipes> recipes) {
         mContext = context;
         mValues = recipes;
         //this.mOnClickListener = mOnClickListener;
@@ -119,41 +119,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View v) {
 
-//                mSteps = recipe.getmSteps();
-//                gson = new Gson();
-//                String stepJson = gson.toJson(mSteps);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("steps", stepJson);
-//                RecipeStepsFragment myObj = new RecipeStepsFragment();
-//                myObj.setArguments(bundle);
 
-                ;
-//                mSteps = recipe.getmSteps();
-//                intent = new Intent(this, RecipeStepsFragment.class);
-//                gson = new Gson();
-//
-//                String stepJson = gson.toJson(stepList);
-//
-//                intent.putExtra(Constants.KEY_STEPS, stepJson);
-//
-//                context.startActivity(intent);
+//               Bundle arguments = new Bundle();
+//                arguments.putString("Steps", String.valueOf(mSteps));
+//                arguments.putStringArrayList("Recipes",(ArrayList) recipe.getmSteps());
+//               RecipeStepsFragment fragment = new RecipeStepsFragment();
+//                fragment.setArguments(arguments);
 
-
-//                Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-//                intent.putExtra("Steps", mValues.get(position));
-//                mContext.startActivity(intent);
-
-                mSteps= mValues.get(position).getmSteps();
-                final Intent intent = new Intent(mContext, RecipeStepsActivity.class);
-                gson = new Gson();
-                String stepJson = gson.toJson(mSteps);
-                intent.putExtra("Steps", stepJson);
-                mContext.startActivity(intent);
-//                RecipeStepsFragment fragment = new RecipeStepsFragment();
-//                Bundle args = new Bundle();
-//                args.putString("Steps", gson.toJson(mSteps));
-//                fragment.setArguments(args);
-
+                RecipeStepsFragment fragment = new RecipeStepsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Recipes", (Parcelable) recipe.getmSteps());
+                fragment.setArguments(bundle);
 
 
             }
