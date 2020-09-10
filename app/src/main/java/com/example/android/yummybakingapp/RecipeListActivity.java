@@ -36,7 +36,7 @@ import retrofit2.Response;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class RecipeListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipes>> {
+public class RecipeListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipes>>, RecipeStepsFragment.OnStepsClickListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -58,6 +58,10 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.item_list, new RecipeStepsFragment())
+                .commit();
 
 
         setRecyclerView();
@@ -155,6 +159,10 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
         mAdapter.clear(new ArrayList<Recipes>());
     }
 
+    @Override
+    public void onStepSelected(Steps step) {
+
+    }
 
 
     //*********************************************************End Loader*****************************************//

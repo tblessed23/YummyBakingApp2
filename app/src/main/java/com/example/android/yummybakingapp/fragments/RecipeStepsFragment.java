@@ -94,9 +94,7 @@ OnStepsClickListener mStepsListener;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mValues = getArguments().getParcelableArrayList("Recipes");
-        }
+
 
 
 
@@ -108,7 +106,9 @@ OnStepsClickListener mStepsListener;
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
         //assert getArguments() != null;
-
+        if (getArguments() != null) {
+            mValues = getArguments().getParcelableArrayList("Recipes");
+        }
 
         //  // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
