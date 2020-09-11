@@ -110,17 +110,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
         final Recipes recipe = mValues.get(position);
         TextView textViewAgain = holder.mContentView;
-        textViewAgain.setText(recipe.getName());
+        textViewAgain.setText(recipe.getmName());
 
         TextView servingsTextView = holder.mServingsView;
-        servingsTextView.setText(Integer.toString(recipe.getServings()));
+        servingsTextView.setText(Integer.toString(recipe.getmServings()));
 
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-                intent.putExtra("Recipes", (ArrayList<? extends Parcelable>) recipe.getSteps());
+                intent.putExtra("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
                 mContext.startActivity(intent);
 
 //                RecipeStepsFragment fragment = new RecipeStepsFragment();

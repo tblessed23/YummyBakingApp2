@@ -101,7 +101,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public void onBindViewHolder(final RecipeStepsAdapter.RecipeStepsViewHolder holder, final int position) {
         final Steps steps = mDataset.get(position);
         TextView textViewAgain = holder.mStepsTextView;
-        textViewAgain.setText(steps.getShortDescription());
+        textViewAgain.setText(steps.getmShortDescription());
 
 
         //holder.secondCardview.setOnClickListener(new View.OnClickListener() {

@@ -8,80 +8,95 @@ import com.google.gson.annotations.SerializedName;
 
 public class Steps implements Parcelable {
 
-    @SerializedName("id")
-    @Expose
-    private int id;
-    @SerializedName("shortDescription")
-    @Expose
-    private String shortDescription;
-    @SerializedName("description")
-    @Expose
-    private String description;
-    @SerializedName("videoURL")
-    @Expose
-    private String videoURL;
-    @SerializedName("thumbnailURL")
-    @Expose
-    private String thumbnailURL;
 
-    protected Steps(Parcel in) {
-        id = in.readInt();
-        shortDescription = in.readString();
-        description = in.readString();
-        videoURL = in.readString();
-        thumbnailURL = in.readString();
-    }
 
-    public static final Creator<Steps> CREATOR = new Creator<Steps>() {
-        @Override
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Steps createFromParcel(Parcel in) {
             return new Steps(in);
         }
 
-        @Override
         public Steps[] newArray(int size) {
-            return new Steps[size];
+            return new Steps[0];
         }
     };
 
-    public int getId() {
+    @SerializedName("id")
+    private int id;
+    @SerializedName("shortDescription")
+    private String shortDescription;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("videoURL")
+    private String videoURL;
+    @SerializedName("thumbnailURL")
+    private String thumbnailURL;
+
+    /**
+     * No args constructor for use in serialization
+     *
+     * @param steps
+     */
+    public Steps(String steps) {
+    }
+
+    //Regular Constructor
+    public Steps(int id, String shortDescription, String description, String videoURL, String thumbnailURL) {
+        this.id = id;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoURL= videoURL;
+        this.thumbnailURL = thumbnailURL;
+
+    }
+
+    public int getmId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setmId(int id) {
         this.id = id;
     }
 
-    public String getShortDescription() {
+    public String getmShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setmShortDescription(String shortDescription) {
+        this.shortDescription= shortDescription;
     }
 
-    public String getDescription() {
+    public String getmDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setmDescription(String description) {
         this.description = description;
     }
 
-    public String getVideoURL() {
+    public String getmVideoUrl() {
         return videoURL;
     }
 
-    public void setVideoURL(String videoURL) {
-        this.videoURL = videoURL;
+    public void setmVideoUrl(String video) {
+        this.videoURL = video;
     }
 
-    public String getThumbnailURL() {
+    public String getmThumbnailUrl() {
         return thumbnailURL;
     }
 
-    public void setThumbnailURL(String thumbnailURL) {
-        this.thumbnailURL = thumbnailURL;
+    public void setmThumbnailUrl(String thumbnail) {
+        this.thumbnailURL = thumbnail;
+    }
+
+
+    //Parceling constructor
+    public Steps(Parcel in) {
+        this.id = in.readInt();
+        this.shortDescription = in.readString();
+        this.description = in.readString();
+        this.videoURL = in.readString();
+        this.thumbnailURL = in.readString();
     }
 
     @Override
@@ -90,117 +105,13 @@ public class Steps implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(shortDescription);
-        parcel.writeString(description);
-        parcel.writeString(videoURL);
-        parcel.writeString(thumbnailURL);
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.shortDescription);
+        dest.writeString(this.description);
+        dest.writeString(this.videoURL);
+        dest.writeString(this.thumbnailURL);
     }
-
-//    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-//        public Steps createFromParcel(Parcel in) {
-//            return new Steps(in);
-//        }
-//
-//        public Steps[] newArray(int size) {
-//            return new Steps[0];
-//        }
-//    };
-//
-//    @SerializedName("id")
-//    private int id;
-//    @SerializedName("shortDescription")
-//    private String shortDescription;
-//    @SerializedName("description")
-//    private String description;
-//    @SerializedName("videoURL")
-//    private String videoURL;
-//    @SerializedName("thumbnailURL")
-//    private String thumbnailURL;
-//
-//    /**
-//     * No args constructor for use in serialization
-//     *
-//     * @param steps
-//     */
-//    public Steps(String steps) {
-//    }
-//
-//    //Regular Constructor
-//    public Steps(int id, String shortDescription, String description, String videoURL, String thumbnailURL) {
-//        this.id = id;
-//        this.shortDescription = shortDescription;
-//        this.description = description;
-//        this.videoURL= videoURL;
-//        this.thumbnailURL = thumbnailURL;
-//
-//    }
-//
-//    public int getmId() {
-//        return id;
-//    }
-//
-//    public void setmId(int id) {
-//        this.id = id;
-//    }
-//
-//    public String getmShortDescription() {
-//        return shortDescription;
-//    }
-//
-//    public void setmShortDescription(String shortDescription) {
-//        this.shortDescription= shortDescription;
-//    }
-//
-//    public String getmDescription() {
-//        return description;
-//    }
-//
-//    public void setmDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public String getmVideoUrl() {
-//        return videoURL;
-//    }
-//
-//    public void setmVideoUrl(String video) {
-//        this.videoURL = video;
-//    }
-//
-//    public String getmThumbnailUrl() {
-//        return thumbnailURL;
-//    }
-//
-//    public void setmThumbnailUrl(String thumbnail) {
-//        this.thumbnailURL = thumbnail;
-//    }
-//
-//
-//    //Parceling constructor
-//    public Steps(Parcel in) {
-//        this.id = in.readInt();
-//        this.shortDescription = in.readString();
-//        this.description = in.readString();
-//        this.videoURL = in.readString();
-//        this.thumbnailURL = in.readString();
-//    }
-//
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(this.id);
-//        dest.writeString(this.shortDescription);
-//        dest.writeString(this.description);
-//        dest.writeString(this.videoURL);
-//        dest.writeString(this.thumbnailURL);
-//    }
 }
 
 
