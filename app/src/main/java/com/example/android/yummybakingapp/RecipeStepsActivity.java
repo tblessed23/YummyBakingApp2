@@ -26,27 +26,7 @@ private String recipes;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
-        Intent intent = getIntent();
-        if (intent == null) {
-            closeOnError();
-        }
 
-        // Using getParcelableExtra(String key) method
-        if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
-            recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
-        }
-
-        if (recipes == null) {
-            // Movie data unavailable
-            closeOnError();
-            return;
-        }
-        Bundle bundle = new Bundle();
-        bundle.putString("recipejson", recipes);
-        RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
-        detailFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.detail_fragment, detailFragment).commit();
 
 //        getSupportFragmentManager().beginTransaction()
 //              .replace(R.id.detail_fragment, new RecipeStepsFragment())
@@ -70,6 +50,26 @@ private String recipes;
     //Define the behavior of onStepSelected
     @Override
     public void onStepSelected(Steps step) {
-        Toast.makeText(this, "Position clicked =", Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        if (intent == null) {
+            closeOnError();
+        }
+
+        // Using getParcelableExtra(String key) method
+        if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
+            recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
+        }
+
+        if (recipes == null) {
+            // Movie data unavailable
+            closeOnError();
+            return;
+        }
+        Bundle bundle = new Bundle();
+        bundle.putString("recipejson", recipes);
+        RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
+        detailFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.detail_fragment, detailFragment).commit();
     }
 }
