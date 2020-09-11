@@ -29,7 +29,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private final Context mContext;
     private List<Recipes> mValues;
     private List<Steps> mSteps;
-    private Gson gson;
+
 
     //private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
@@ -119,11 +119,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View v) {
 
-                RecipeStepsFragment fragment = new RecipeStepsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
-                bundle.putParcelable("Recipe", recipe);
-                fragment.setArguments(bundle);
+                Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
+                intent.putExtra("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
+                mContext.startActivity(intent);
+
+//                RecipeStepsFragment fragment = new RecipeStepsFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelableArrayList("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
+//                fragment.setArguments(bundle);
 
             }
         });

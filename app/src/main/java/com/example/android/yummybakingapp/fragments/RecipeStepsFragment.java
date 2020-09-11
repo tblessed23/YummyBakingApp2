@@ -42,6 +42,7 @@ private List<Steps> mSteps;
 private RecyclerView recyclerView;
 private RecyclerView.LayoutManager layoutManager;
 private RecipeStepsAdapter mAdapter;
+private Recipes recipes;
 
 
 //Define a new interface that triggers a callback to the host activity
@@ -72,30 +73,14 @@ OnStepsClickListener mStepsListener;
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param //param1 Parameter 1.
-     * @param //param2 Parameter 2.
-     * @return A new instance of fragment RecipeStepsFragment.
-     */
-//    // TODO: Rename and change types and number of parameters
-//    public static RecipeStepsFragment newInstance(String param1, String param2) {
-//        RecipeStepsFragment fragment = new RecipeStepsFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-
+        if (getArguments() != null) {
+            mSteps = getArguments().getParcelable("recipesjson");
+        }
 
 
     }
@@ -105,17 +90,13 @@ OnStepsClickListener mStepsListener;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
-        //assert getArguments() != null;
-        if (getArguments() != null) {
-            mValues = getArguments().getParcelableArrayList("Recipes");
-        }
 
-        //  // Find a reference to the {@link RecyclerView} in the layout
+        // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         layoutManager = new GridLayoutManager(getActivity(), 1, RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeStepsAdapter(getActivity(), new ArrayList<Steps>());
+        mAdapter = new RecipeStepsAdapter(getActivity(), mSteps);
         recyclerView.setAdapter(mAdapter);
 
 
