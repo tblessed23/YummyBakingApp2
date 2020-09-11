@@ -101,33 +101,12 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public void onBindViewHolder(final RecipeStepsAdapter.RecipeStepsViewHolder holder, final int position) {
         final Steps steps = mDataset.get(position);
         TextView textViewAgain = holder.mStepsTextView;
-        textViewAgain.setText(steps.getmShortDescription());
+        textViewAgain.setText(steps.getShortDescription());
 
 
-        holder.secondCardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                mSteps = recipe.getmSteps();
-//                gson = new Gson();
-//                String stepJson = gson.toJson(mSteps);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("steps", stepJson);
-//                RecipeStepsFragment myObj = new RecipeStepsFragment();
-//                myObj.setArguments(bundle);
-
-                ;
-//                mSteps = recipe.getmSteps();
-//                intent = new Intent(this, RecipeStepsFragment.class);
-//                gson = new Gson();
-//
-//                String stepJson = gson.toJson(stepList);
-//
-//                intent.putExtra(Constants.KEY_STEPS, stepJson);
-//
-//                context.startActivity(intent);
-
-
+        //holder.secondCardview.setOnClickListener(new View.OnClickListener() {
+           // @Override
+           // public void onClick(View v) {
 
 
 //                mSteps= mValues.get(position).getmSteps();
@@ -137,8 +116,8 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 //                intent.putExtra("Steps", stepJson);
 //                mContext.startActivity(intent);
 
-            }
-        });
+           // }
+       // });
     }
 
 
@@ -152,7 +131,8 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+       // return mDataset.size();
+        return mDataset == null ? 0 : mDataset.size();
     }
 
     public void clear(List<Steps> data) {
@@ -163,13 +143,13 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     class RecipeStepsViewHolder extends RecyclerView.ViewHolder {
 
-        final CardView secondCardview;
+
         final TextView mStepsTextView;
 
         RecipeStepsViewHolder(View view) {
             super(view);
 
-            secondCardview = view.findViewById(R.id.fragment_recipe_steps_id);
+
             mStepsTextView = view.findViewById(R.id.content_text_recipestepsfragment);
 
             //Call setOnClickListener on the view passed into the constructor
@@ -207,11 +187,12 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public RecipeStepsAdapter.RecipeStepsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.fragment_recipe_steps;
+
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
         View view = inflater.inflate(layoutIdForListItem, viewGroup,
                 shouldAttachToParentImmediately);
-
+        view.setTag(mDataset);
         RecipeStepsAdapter.RecipeStepsViewHolder vh = new RecipeStepsAdapter.RecipeStepsViewHolder(view);
 
         return vh;

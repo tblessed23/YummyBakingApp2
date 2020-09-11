@@ -79,7 +79,7 @@ OnStepsClickListener mStepsListener;
 
 
         if (getArguments() != null) {
-            mSteps = getArguments().getParcelable("recipesjson");
+            mSteps = getArguments().getParcelable("recipejson");
         }
 
 
