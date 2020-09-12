@@ -7,6 +7,7 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ import retrofit2.Response;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class RecipeListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipes>>, RecipeStepsFragment.OnStepsClickListener {
+public class RecipeListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipes>> {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -54,15 +55,14 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
     private List<Recipes> mRecipes;
     private static final int RECIPES_LOADER_ID = 1;
 
+    private String recipes;
+    private List<Recipes> mValues;
+    private String recipeJson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.item_list, new RecipeStepsFragment())
-                .commit();
-
 
         setRecyclerView();
 
@@ -159,11 +159,36 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
         mAdapter.clear(new ArrayList<Recipes>());
     }
 
-    @Override
-    public void onStepSelected(Steps step) {
-
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
+
+//    @Override
+//    public void onStepSelected() {
+//        Intent intent = getIntent();
+//        if (intent == null) {
+//            closeOnError();
+//        }
+//
+//        // Using getParcelableExtra(String key) method
+//        if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
+//            recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
+//        }
+//
+//        if (recipes == null) {
+//            // Movie data unavailable
+//            closeOnError();
+//            return;
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putString("recipejson", recipes);
+//        RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
+//        detailFragment.setArguments(bundle);
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.detail_fragment, detailFragment).commit();
+//    }
 
     //*********************************************************End Loader*****************************************//
 

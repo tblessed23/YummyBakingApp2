@@ -33,7 +33,7 @@ import java.util.List;
  * Use the {@link RecipeStepsFragment#//newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeStepsFragment extends Fragment {
+public class RecipeStepsFragment extends Fragment implements RecipeStepsAdapter.ListItemClickListener {
 
 String steps;
 TextView stepsTextview;
@@ -43,15 +43,21 @@ private RecyclerView recyclerView;
 private RecyclerView.LayoutManager layoutManager;
 private RecipeStepsAdapter mAdapter;
 private Recipes recipes;
+private Steps stepsAgain;
 
 
 //Define a new interface that triggers a callback to the host activity
 OnStepsClickListener mStepsListener;
 
+    @Override
+    public void onListItemClick(int mDataset) {
+        mStepsListener.onStepSelected();
+    }
+
 
     // OnStepsClickListener interface, calls a method in the host activity named onStepSelected
     public interface OnStepsClickListener {
-        void onStepSelected(Steps step);
+        void onStepSelected();
     }
 
     // Override onAttach to make sure that the container activity has implemented the callback
@@ -77,10 +83,10 @@ OnStepsClickListener mStepsListener;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (getArguments() != null) {
-            mSteps = getArguments().getParcelable("recipejson");
+            recipes = getArguments().getParcelable("Recipes");
         }
+
 
 
     }
@@ -93,52 +99,11 @@ OnStepsClickListener mStepsListener;
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        mAdapter = new RecipeStepsAdapter(this, recipes.getmSteps());
         layoutManager = new GridLayoutManager(getActivity(), 1, RecyclerView.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeStepsAdapter(getActivity(), mSteps);
         recyclerView.setAdapter(mAdapter);
-
-
-//        // Get a reference to the CardView in the fragment layout
-
-      //  final GridView gridView = (GridView) rootView.findViewById(R.id.images_grid_view);
-
-
-        // Set a click listener on the cardView and trigger the callback onStepSelected when an item is clicked
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-
-
-        });
-
-//        // Set a click listener on the gridView and trigger the callback onImageSelected when an item is clicked
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                // Trigger the callback method and pass in the position that was clicked
-//                mStepsListener.onStepSelected(position);
-//            }
-//        });
-
-//        cardView.setOnClickListener(new AdapterView.OnClickListener() {
-//            @Override
-//            public void onClick(AdapterView<?> adapterView, View v, View view, int position, long l) {
-//                // Trigger the callback method and pass in the position that was clicked
-//                mStepsListener.onStepSelected(position);
-//            }
-//        });
-
-//        {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                // Trigger the callback method and pass in the position that was clicked
-//                mStepsListener.onStepSelected(position);
-//            }
-//        });
 
 
         return rootView;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="90dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/first_cardview"
+    android:id="@+id/second_cardview"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
     android:layout_margin="8dp">
@@ -19,17 +19,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:text="This is the cardview"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <TextView
-            android:id="@+id/steps"
+            android:id="@+id/content_recipesteps_cardview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"

@@ -31,6 +31,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private List<Steps> mSteps;
 
 
+
     //private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
 
@@ -120,13 +121,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             public void onClick(View v) {
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-                intent.putExtra("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
+                intent.putExtra("Recipes", recipe);
                 mContext.startActivity(intent);
-
-//                RecipeStepsFragment fragment = new RecipeStepsFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelableArrayList("Recipes", (ArrayList<? extends Parcelable>) recipe.getmSteps());
-//                fragment.setArguments(bundle);
 
             }
         });
@@ -155,6 +151,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     class RecipeViewHolder extends RecyclerView.ViewHolder {
         final TextView mContentView;
         final TextView mServingsView;
+        final TextView mStepsView;
         final CardView firstCardview;
 
 
@@ -162,6 +159,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             super(view);
             mContentView = view.findViewById(R.id.content);
             mServingsView = view.findViewById(R.id.id_text);
+            mStepsView = view.findViewById(R.id.steps);
             firstCardview = view.findViewById(R.id.first_cardview);
 
 

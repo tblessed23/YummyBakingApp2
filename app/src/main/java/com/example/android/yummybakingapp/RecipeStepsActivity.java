@@ -15,11 +15,9 @@ import com.example.android.yummybakingapp.model.Steps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener {
+public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
 
-private String recipes;
-    private List<Recipes> mValues;
-    private String recipeJson;
+private Recipes recipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +45,9 @@ private String recipes;
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    //Define the behavior of onStepSelected
+   // Define the behavior of onStepSelected
     @Override
-    public void onStepSelected(Steps step) {
+    public void onStepSelected() {
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
@@ -60,13 +58,18 @@ private String recipes;
             recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
         }
 
+
+
         if (recipes == null) {
             // Movie data unavailable
             closeOnError();
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putString("recipejson", recipes);
+        if (recipes != null) {
+        bundle.putParcelable("Recipes", recipes);
+
+    }
         RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
         detailFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()

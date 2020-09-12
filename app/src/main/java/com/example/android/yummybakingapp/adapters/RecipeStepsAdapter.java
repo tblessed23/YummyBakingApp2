@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
-    private final Context mContext;
+    //private final Context mContext;
     private List<Steps> mDataset;
     private Gson gson;
-    //private ListItemClickListener mOnClickListener;
+   private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -75,11 +75,11 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
      */
 
 
-    public RecipeStepsAdapter(Context context,
-                              List<Steps> steps) {
-        mContext = context;
+    public RecipeStepsAdapter(ListItemClickListener mOnClickListener, List<Steps> steps) {
+        //mContext = context;
+        this.mOnClickListener = mOnClickListener;
         mDataset = steps;
-        //this.mOnClickListener = mOnClickListener;
+
         //mTwoPane = twoPane;
     }
 
@@ -141,28 +141,30 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     }
 
 
-    class RecipeStepsViewHolder extends RecyclerView.ViewHolder {
+    class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         final TextView mStepsTextView;
+        final CardView secondCardview;
 
         RecipeStepsViewHolder(View view) {
             super(view);
 
 
-            mStepsTextView = view.findViewById(R.id.content_text_recipestepsfragment);
+            mStepsTextView = view.findViewById(R.id.content_recipesteps_cardview);
+            secondCardview = view.findViewById(R.id.second_cardview);
 
             //Call setOnClickListener on the view passed into the constructor
             //(use 'this' as the OnClickListener)
-            //view.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
 
 
-//        @Override
-//        public void onClick(View v) {
-//            int position = getAdapterPosition();
-//            mOnClickListener.onListItemClick(position);
-//        }
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            mOnClickListener.onListItemClick(position);
+        }
     }
     /**
      *
@@ -186,7 +188,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     @Override
     public RecipeStepsAdapter.RecipeStepsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.fragment_recipe_steps;
+        int layoutIdForListItem = R.layout.cardview_steps_list;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
