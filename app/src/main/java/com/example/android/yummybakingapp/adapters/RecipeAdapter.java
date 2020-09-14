@@ -28,7 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private final Context mContext;
     private List<Recipes> mValues;
-    private List<Steps> mSteps;
+
 
 
 

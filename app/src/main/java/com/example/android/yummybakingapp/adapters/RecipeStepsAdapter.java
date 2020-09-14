@@ -11,7 +11,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.yummybakingapp.R;
+import com.example.android.yummybakingapp.RecipeDetailActivity;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
+import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Steps;
 import com.google.gson.Gson;
 
@@ -21,8 +23,10 @@ import java.util.List;
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
     //private final Context mContext;
     private List<Steps> mDataset;
-    private Gson gson;
-   private ListItemClickListener mOnClickListener;
+    private List<Ingredients> mDatasetIngredients;
+    private Context mContext;
+    private ListItemClickListener mOnClickListener;
+    private String mSteps;
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -58,6 +62,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     public void setRecipeData(List<Steps> steps) {
         mDataset = steps;
+
         notifyDataSetChanged();
     }
 
@@ -79,6 +84,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         //mContext = context;
         this.mOnClickListener = mOnClickListener;
         mDataset = steps;
+
 
         //mTwoPane = twoPane;
     }
@@ -103,6 +109,15 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         TextView textViewAgain = holder.mStepsTextView;
         textViewAgain.setText(steps.getmShortDescription());
 
+
+//        holder.mStepDetailsCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                mSteps= mDataset.get(position).getmDescription();
+//
+//            }
+//        });
 
         //holder.secondCardview.setOnClickListener(new View.OnClickListener() {
            // @Override
@@ -145,14 +160,17 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
 
         final TextView mStepsTextView;
-        final CardView secondCardview;
+//        final TextView mStepDetailsTextView;
+        final CardView mStepDetailsCardView;
+
 
         RecipeStepsViewHolder(View view) {
             super(view);
 
 
             mStepsTextView = view.findViewById(R.id.content_recipesteps_cardview);
-            secondCardview = view.findViewById(R.id.second_cardview);
+//            mStepDetailsTextView = view.findViewById(R.id.step_detail_text_view);
+            mStepDetailsCardView = view.findViewById(R.id.card);
 
             //Call setOnClickListener on the view passed into the constructor
             //(use 'this' as the OnClickListener)
