@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.adapters.RecipeAdapter;
@@ -49,6 +50,8 @@ private Steps stepsAgain;
 
 //Define a new interface that triggers a callback to the host activity
 OnStepsClickListener mStepsListener;
+
+
 
     @Override
     public void onListItemClick(int mDataset) {
@@ -105,7 +108,10 @@ OnStepsClickListener mStepsListener;
         mAdapter = new RecipeStepsAdapter(this, recipes.getmSteps());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+
         recyclerView.setAdapter(mAdapter);
+
 
 
         return rootView;
