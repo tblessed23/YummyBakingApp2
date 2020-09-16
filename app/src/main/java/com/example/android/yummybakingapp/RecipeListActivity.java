@@ -164,34 +164,5 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-
-//    @Override
-//    public void onStepSelected() {
-//        Intent intent = getIntent();
-//        if (intent == null) {
-//            closeOnError();
-//        }
-//
-//        // Using getParcelableExtra(String key) method
-//        if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
-//            recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
-//        }
-//
-//        if (recipes == null) {
-//            // Movie data unavailable
-//            closeOnError();
-//            return;
-//        }
-//        Bundle bundle = new Bundle();
-//        bundle.putString("recipejson", recipes);
-//        RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
-//        detailFragment.setArguments(bundle);
-//        getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.detail_fragment, detailFragment).commit();
-//    }
-
     //*********************************************************End Loader*****************************************//
-
-
-
 }

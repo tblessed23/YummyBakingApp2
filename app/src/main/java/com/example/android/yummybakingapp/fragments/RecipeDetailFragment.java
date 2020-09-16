@@ -1,9 +1,11 @@
 package com.example.android.yummybakingapp.fragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +25,13 @@ public class RecipeDetailFragment extends Fragment {
 
     private Recipes recipes;
     private Steps steps;
-    private List<Steps> mSteps;
+
     private List<Recipes> recipesList;
+    private int stepsList;
+    private String mStepsAgain;
 
 
-    TextView stepdetailsTextView;
+    TextView stepinstructionTextView;
     Steps stepdetails;
     int recipestepsId;
     String stepsDescription;
@@ -48,19 +52,24 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            steps= getArguments().getParcelable("Steps");
-//        }
+        if (getArguments() != null) {
+            steps= getArguments().getParcelable("Steps");
+
+        }
 
         if (getArguments() != null) {
             recipes = getArguments().getParcelable("Recipes");
         }
 
 
-//        mListIndex=recipes.getmSteps().indexOf(steps);
-        stepdetails = recipes.getmSteps().get(mListIndex);
 
-        recipestepsId = recipes.getmId();
+        //stepsList = recipes.getmSteps().indexOf(steps);
+
+        assert recipes != null;
+        stepdetails = recipes.getmSteps().get(Integer.parseInt(String.valueOf(steps)));
+
+
+;
 
 
 //        //go through each item if you have few items within recycler view
@@ -78,25 +87,19 @@ public class RecipeDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
         // Get a reference to the ImageView in the fragment layout
-        final TextView  textView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
+        stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
 
-        //go through each item if you have few items within recycler view
-        if(recipestepsId==0){
-            stepdetails = recipes.getmSteps().get(0);
-        }else if(recipestepsId==1){
-            stepdetails = recipes.getmSteps().get(1);
-        }
 
-        //Set the detail resouce to display
-        textView.setText(stepdetails.getmDescription());
+
+//Set the Text of the Movie Object Variables
+//        TextView ingredientsTextView = rootView.findViewById(R.id.step_detail_text_view);
+//        ingredientsTextView.setText(stepdetails.getmDescription());
 
         // If a list of image ids exists, set the image resource to the correct item in that list
         // Otherwise, create a Log statement that indicates that the list was not found
-        if(recipes != null){
-            // Set the image resource to the list item at the stored index
-
-
-            textView.setText(stepdetails.getmDescription());
+      // if(recipes != null){
+            // Set the step resource to the list item at the stored index
+        stepinstructionTextView.setText(stepdetails.getmDescription());
 
 //            // Set a click listener on the image view
 //            textView.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +117,14 @@ public class RecipeDetailFragment extends Fragment {
 //                }
 //            });
 
-        } else {
-            Log.v(TAG, "This fragment has a null list of image id's");
-        }
+        //} else {
+        //    Log.v(TAG, "This fragment has a null list of image id's");
+       // }
 
         return rootView;
     }
+
+
 
     // Setter methods for keeping track of the list images this fragment can display and which image
     // in the list is currently being displayed

@@ -29,10 +29,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private final Context mContext;
     private List<Recipes> mValues;
 
-
-
-
-    //private ListItemClickListener mOnClickListener;
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -89,7 +85,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                         ArrayList<Recipes> recipes) {
         mContext = context;
         mValues = recipes;
-        //this.mOnClickListener = mOnClickListener;
         //mTwoPane = twoPane;
     }
 
@@ -161,19 +156,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             mServingsView = view.findViewById(R.id.id_text);
             mStepsView = view.findViewById(R.id.steps);
             firstCardview = view.findViewById(R.id.first_cardview);
-
-
-            //Call setOnClickListener on the view passed into the constructor
-            //(use 'this' as the OnClickListener)
-            //view.setOnClickListener(this);
         }
-
-
-//        @Override
-//        public void onClick(View v) {
-//            int position = getAdapterPosition();
-//            mOnClickListener.onListItemClick(position);
-//        }
     }
     /**
      *

@@ -2,10 +2,13 @@ package com.example.android.yummybakingapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,7 @@ import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeDetailActivity;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.model.Ingredients;
+import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 import com.google.gson.Gson;
 
@@ -21,12 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
-    //private final Context mContext;
+
     private List<Steps> mDataset;
     private List<Ingredients> mDatasetIngredients;
-    private Context mContext;
+    private final Context mContext;
     private ListItemClickListener mOnClickListener;
     private String mSteps;
+    private Recipes recipes;
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -62,7 +67,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     public void setRecipeData(List<Steps> steps) {
         mDataset = steps;
-
         notifyDataSetChanged();
     }
 
@@ -72,9 +76,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     }
 
-//    public void setOnItemClickListener(ListItemClickListener clickListener) {
-//        RecipeStepsAdapter.clickListener = clickListener;
-//    }
+
 
     /**
      * Constructor for MovieAdapter that accepts a number of items to display
@@ -85,14 +87,16 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
      */
 
 
-    public RecipeStepsAdapter(ListItemClickListener mOnClickListener, List<Steps> steps) {
-        //mContext = context;
+    public RecipeStepsAdapter(Context context, ListItemClickListener mOnClickListener, List<Steps> steps) {
+        this.mContext = context;
         this.mOnClickListener = mOnClickListener;
         mDataset = steps;
 
-
         //mTwoPane = twoPane;
     }
+
+
+
 
     /**
      * OnBindViewHolder is called by the RecyclerView to display the data at
@@ -119,8 +123,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 //            @Override
 //            public void onClick(View v) {
 //
-//                //mSteps= mDataset.get(position).getmDescription();
-//               mOnClickListener.onListItemClick(Integer.toString(steps);
+//                Intent intent =  new Intent(mContext, RecipeDetailActivity.class);
+//                intent.putExtra("Steps", steps);
+//                mContext.startActivity(intent);
 //
 //            }
 //        });
@@ -138,7 +143,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     @Override
     public int getItemCount() {
-       // return mDataset.size();
+        // return mDataset.size();
         return mDataset == null ? 0 : mDataset.size();
     }
 
@@ -152,7 +157,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
 
         final TextView mStepsTextView;
-//        final TextView mStepDetailsTextView;
         final CardView mStepDetailsCardView;
 
 
@@ -161,7 +165,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
 
             mStepsTextView = view.findViewById(R.id.content_recipesteps_cardview);
-//           mStepDetailsTextView = view.findViewById(R.id.step_detail_text_view);
             mStepDetailsCardView = view.findViewById(R.id.card);
 
             //Call setOnClickListener on the view passed into the constructor
@@ -175,8 +178,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         public void onClick(View v) {
             int position = getAdapterPosition();
             mOnClickListener.onListItemClick(position);
-
-
         }
     }
     /**

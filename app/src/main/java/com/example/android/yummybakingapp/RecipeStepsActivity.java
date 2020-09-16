@@ -26,6 +26,9 @@ import java.util.List;
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
 
 private List<Recipes> mValues;
+private List<Steps> mDataset;
+
+
 private Recipes recipes;
 private Steps steps;
     private List<Integer> mImageIds;
@@ -65,16 +68,10 @@ private Steps steps;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.detail_fragment, detailFragment).commit();
 
+
+
     }
 
-//    public static RecipeStepsFragment newInstance(Recipes recipes) {
-//        final Recipes recipes1 = recipes;
-//        RecipeStepsFragment fragment = new RecipeStepsFragment();
-//        Bundle args = new Bundle();
-//        args.putString("Recipes", String.valueOf(recipes1));
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     private void closeOnError() {
         finish();
@@ -83,17 +80,21 @@ private Steps steps;
 
     //Define the behavior of onStepSelected
     @Override
-    public void onStepSelected() {
+    public void onStepSelected(int position) {
     //Handle Communication Between Fragments
+        // Create a Toast that displays the position that was clicked
+       // Toast.makeText(this, "Position clicked = " + position, Toast.LENGTH_SHORT).show();
+
 
         // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
         Bundle b = new Bundle();
         b.putParcelable("Recipes", recipes);
-        b.putParcelable("Steps", steps);
+
 
         // Attach the Bundle to an intent
         final Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.putExtras(b);
+        intent.putExtra("Steps", position);
         startActivity(intent);
 
 }}

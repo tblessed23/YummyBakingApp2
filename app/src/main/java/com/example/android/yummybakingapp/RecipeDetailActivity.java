@@ -33,6 +33,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Using getParcelableExtra(String key) method
         if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
             recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
+            steps = intent.getParcelableExtra("Steps");
         }
 
 
@@ -46,7 +47,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (recipes!= null) {
             bundle.putParcelable("Recipes", recipes);
 
+
         }
+        if (steps!= null) {
+
+            bundle.putParcelable("Steps", steps);
+
+        }
+
 
         // Create a new head BodyPartFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();

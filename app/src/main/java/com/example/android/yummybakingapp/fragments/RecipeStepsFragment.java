@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.adapters.RecipeAdapter;
 import com.example.android.yummybakingapp.adapters.RecipeStepsAdapter;
+import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 
@@ -35,7 +37,7 @@ import java.util.List;
  * Use the {@link RecipeStepsFragment#//newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeStepsFragment extends Fragment implements RecipeStepsAdapter.ListItemClickListener {
+public class RecipeStepsFragment extends Fragment  implements RecipeStepsAdapter.ListItemClickListener {
 
 String steps;
 TextView stepsTextview;
@@ -47,21 +49,32 @@ private RecipeStepsAdapter mAdapter;
 private Recipes recipes;
 private Steps stepsAgain;
 
+TextView ingredientsTextView;
+List<Ingredients> ingredientsList;
+
 
 //Define a new interface that triggers a callback to the host activity
 OnStepsClickListener mStepsListener;
+
+// Tag for logging
+    private static final String TAG = "RecipeStepsFragment";
+
 
 
 
     @Override
     public void onListItemClick(int mDataset) {
-        mStepsListener.onStepSelected();
+        mStepsListener.onStepSelected(mDataset);
     }
+
+
 
 
     // OnStepsClickListener interface, calls a method in the host activity named onStepSelected
     public interface OnStepsClickListener {
-        void onStepSelected();
+
+        void onStepSelected(int position);
+
     }
 
     // Override onAttach to make sure that the container activity has implemented the callback
@@ -87,11 +100,15 @@ OnStepsClickListener mStepsListener;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
+
         if (getArguments() != null) {
             recipes = getArguments().getParcelable("Recipes");
         }
 
-
+        ingredientsList = recipes.getmIngredients();
 
     }
 
@@ -101,19 +118,22 @@ OnStepsClickListener mStepsListener;
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
+//Set the Text of the Movie Object Variables
+        ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
+        ingredientsTextView.setText(TextUtils.join("", recipes.getmIngredients()));
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeStepsAdapter(this, recipes.getmSteps());
+        mAdapter = new RecipeStepsAdapter(getActivity(),this, recipes.getmSteps());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-
         recyclerView.setAdapter(mAdapter);
 
 
 
         return rootView;
     }
+
+
 }

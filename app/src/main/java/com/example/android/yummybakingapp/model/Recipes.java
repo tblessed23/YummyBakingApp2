@@ -36,7 +36,7 @@ public class Recipes implements Parcelable {
     private List<Ingredients> ingredients;
 
     @SerializedName("steps")
-    private List<Steps> steps = new ArrayList<Steps>();
+    private List<Steps> steps;
 
     @SerializedName("servings")
     private int servings;
@@ -55,8 +55,8 @@ public class Recipes implements Parcelable {
     public Recipes(int id, String name, List<Ingredients> ingredients,  List<Steps> steps, int servings) {
         this.id = id;
         this.name = name;
-        this.ingredients = ingredients;
-        this.steps = steps;
+        this.ingredients = new ArrayList<>();
+        this.steps =  new ArrayList<>();
         this.servings = servings;
     }
 
