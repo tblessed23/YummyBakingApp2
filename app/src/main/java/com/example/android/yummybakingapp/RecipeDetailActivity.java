@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
@@ -12,6 +13,7 @@ import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private List<Recipes> mValues;
     private Recipes recipes;
     private Steps steps;
+    private  ArrayList<Steps> movieArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
             recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
             steps = intent.getParcelableExtra("Steps");
+             movieArray = this.getIntent().getParcelableArrayListExtra("array");
         }
 
 
@@ -44,16 +48,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
             return;
         }
         Bundle bundle = new Bundle();
-        if (recipes!= null) {
+        if (recipes!= null && steps!= null && movieArray!= null)  {
             bundle.putParcelable("Recipes", recipes);
-
+            bundle.putParcelable("Steps", steps);
+            bundle.putParcelable("array", (Parcelable) movieArray);
 
         }
+
         if (steps!= null) {
+
 
             bundle.putParcelable("Steps", steps);
 
         }
+
 
 
         // Create a new head BodyPartFragment

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Movie;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -93,6 +94,9 @@ private Steps steps;
 
         // Attach the Bundle to an intent
         final Intent intent = new Intent(this, RecipeDetailActivity.class);
+        ArrayList<Steps> movieArray = new ArrayList<Steps>();
+
+        intent.putParcelableArrayListExtra("array", movieArray);
         intent.putExtras(b);
         intent.putExtra("Steps", position);
         startActivity(intent);

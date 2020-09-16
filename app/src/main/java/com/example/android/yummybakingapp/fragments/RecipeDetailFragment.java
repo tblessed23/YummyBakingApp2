@@ -1,5 +1,6 @@
 package com.example.android.yummybakingapp.fragments;
 
+import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +27,8 @@ public class RecipeDetailFragment extends Fragment {
 
     private Recipes recipes;
     private Steps steps;
+    private  ArrayList<Steps> movieArray;
+
 
     private List<Recipes> recipesList;
     private int stepsList;
@@ -34,7 +38,7 @@ public class RecipeDetailFragment extends Fragment {
     TextView stepinstructionTextView;
     Steps stepdetails;
     int recipestepsId;
-    String stepsDescription;
+    private List<Steps> stepsDescription;
     int stepsstepsId;
 
     private List<Integer> mImageIds;
@@ -42,6 +46,7 @@ public class RecipeDetailFragment extends Fragment {
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
+    private Object Steps;
 
 
     public RecipeDetailFragment() {
@@ -54,19 +59,17 @@ public class RecipeDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             steps= getArguments().getParcelable("Steps");
-
-        }
-
-        if (getArguments() != null) {
             recipes = getArguments().getParcelable("Recipes");
+            movieArray = getArguments().getParcelableArrayList("array");
+
         }
 
-
+        mListIndex = movieArray;
 
         //stepsList = recipes.getmSteps().indexOf(steps);
 
         assert recipes != null;
-        stepdetails = recipes.getmSteps().get(Integer.parseInt(String.valueOf(steps)));
+      //  stepsDescription = (List<com.example.android.yummybakingapp.model.Steps>) recipes.getmSteps().get(0);
 
 
 ;
@@ -99,7 +102,7 @@ public class RecipeDetailFragment extends Fragment {
         // Otherwise, create a Log statement that indicates that the list was not found
       // if(recipes != null){
             // Set the step resource to the list item at the stored index
-        stepinstructionTextView.setText(stepdetails.getmDescription());
+        stepinstructionTextView.setText(recipes.getmSteps().get(movieArray).getmDescription());
 
 //            // Set a click listener on the image view
 //            textView.setOnClickListener(new View.OnClickListener() {
