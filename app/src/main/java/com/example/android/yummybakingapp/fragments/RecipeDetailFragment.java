@@ -61,39 +61,18 @@ public class RecipeDetailFragment extends Fragment {
         if (getArguments() != null) {
             steps= getArguments().getParcelable("Steps");
             recipes = getArguments().getParcelable("Recipes");
-            position = getArguments().getInt("StepsPosition", 0);
+            position = getArguments().getInt("StepsPosition");
 
         }
 
 
-        if (getArguments() != null) {
+            stepdetails = recipes.getmSteps().get(position);
+        //stepsDescription  = recipes.getmSteps();
 
-
-           // movieArray = getArguments().getParcelableArrayList("array");
-
-        }
-
-//        if(recipes != null) {
-//            stepsDescription = recipes.getmSteps();
-//
-//        }
-        //stepsList = recipes.getmSteps().indexOf(steps);
-
-
-      //  stepsDescription = (List<com.example.android.yummybakingapp.model.Steps>) recipes.getmSteps().get(0);
-//        assert recipes != null;
-        //if(recipes != null) {
-            stepdetails = recipes.getmSteps().get(0);
-       // }
 ;
 
-
-//        //go through each item if you have few items within recycler view
-//        if(recipestepsId==0){
 //            stepdetails = recipes.getmSteps().get(0);
-//        }else if(recipestepsId==1){
-//            stepdetails = recipes.getmSteps().get(1);
-//        }
+
     }
 
     @Override
