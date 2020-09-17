@@ -18,10 +18,11 @@ import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
-    private List<Recipes> mValues;
+
     private Recipes recipes;
     private Steps steps;
-    private  ArrayList<Steps> movieArray;
+
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
             recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
             steps = intent.getParcelableExtra("Steps");
-             movieArray = this.getIntent().getParcelableArrayListExtra("array");
+            position = intent.getIntExtra("StepsPosition", 0);
         }
 
 
@@ -48,19 +49,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
             return;
         }
         Bundle bundle = new Bundle();
-        if (recipes!= null && steps!= null && movieArray!= null)  {
+        if (recipes!= null)  {
             bundle.putParcelable("Recipes", recipes);
-            bundle.putParcelable("Steps", steps);
-            bundle.putParcelable("array", (Parcelable) movieArray);
+
 
         }
-
-        if (steps!= null) {
-
-
+        if (steps!= null)  {
             bundle.putParcelable("Steps", steps);
-
         }
+
+
+            bundle.getInt("StepsPosition", position);
+            ;
+
+
 
 
 

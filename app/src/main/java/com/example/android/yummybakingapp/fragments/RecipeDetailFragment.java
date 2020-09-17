@@ -27,8 +27,8 @@ public class RecipeDetailFragment extends Fragment {
 
     private Recipes recipes;
     private Steps steps;
-    private  ArrayList<Steps> movieArray;
-
+    private  List<Steps> movieArray;
+    int position;
 
     private List<Recipes> recipesList;
     private int stepsList;
@@ -46,7 +46,7 @@ public class RecipeDetailFragment extends Fragment {
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
-    private Object Steps;
+
 
 
     public RecipeDetailFragment() {
@@ -57,21 +57,34 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             steps= getArguments().getParcelable("Steps");
             recipes = getArguments().getParcelable("Recipes");
-            movieArray = getArguments().getParcelableArrayList("array");
+            position = getArguments().getInt("StepsPosition", 0);
 
         }
 
-        mListIndex = movieArray;
 
+        if (getArguments() != null) {
+
+
+           // movieArray = getArguments().getParcelableArrayList("array");
+
+        }
+
+//        if(recipes != null) {
+//            stepsDescription = recipes.getmSteps();
+//
+//        }
         //stepsList = recipes.getmSteps().indexOf(steps);
 
-        assert recipes != null;
+
       //  stepsDescription = (List<com.example.android.yummybakingapp.model.Steps>) recipes.getmSteps().get(0);
-
-
+//        assert recipes != null;
+        //if(recipes != null) {
+            stepdetails = recipes.getmSteps().get(0);
+       // }
 ;
 
 
@@ -100,9 +113,11 @@ public class RecipeDetailFragment extends Fragment {
 
         // If a list of image ids exists, set the image resource to the correct item in that list
         // Otherwise, create a Log statement that indicates that the list was not found
-      // if(recipes != null){
-            // Set the step resource to the list item at the stored index
-        stepinstructionTextView.setText(recipes.getmSteps().get(movieArray).getmDescription());
+       if(recipes != null) {
+           // Set the step resource to the list item at the stored index
+           stepinstructionTextView.setText(stepdetails.getmDescription());
+
+       }
 
 //            // Set a click listener on the image view
 //            textView.setOnClickListener(new View.OnClickListener() {

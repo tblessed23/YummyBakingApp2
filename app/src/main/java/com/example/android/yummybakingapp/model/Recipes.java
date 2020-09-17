@@ -56,7 +56,7 @@ public class Recipes implements Parcelable {
         this.id = id;
         this.name = name;
         this.ingredients = new ArrayList<>();
-        this.steps =  new ArrayList<>();
+        this.steps =  steps;
         this.servings = servings;
     }
 

@@ -27,11 +27,10 @@ import java.util.List;
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
 
     private List<Steps> mDataset;
-    private List<Ingredients> mDatasetIngredients;
-    private final Context mContext;
+
+    //private final Context mContext;
     private ListItemClickListener mOnClickListener;
-    private String mSteps;
-    private Recipes recipes;
+
     // private final boolean mTwoPane;
 
 //    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -87,8 +86,8 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
      */
 
 
-    public RecipeStepsAdapter(Context context, ListItemClickListener mOnClickListener, List<Steps> steps) {
-        this.mContext = context;
+    public RecipeStepsAdapter(ListItemClickListener mOnClickListener, List<Steps> steps) {
+        //this.mContext = context;
         this.mOnClickListener = mOnClickListener;
         mDataset = steps;
 
@@ -117,19 +116,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         final Steps steps = mDataset.get(position);
         TextView textViewAgain = holder.mStepsTextView;
         textViewAgain.setText(steps.getmShortDescription());
-
-
-//        holder.mStepDetailsCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent =  new Intent(mContext, RecipeDetailActivity.class);
-//                intent.putExtra("Steps", steps);
-//                mContext.startActivity(intent);
-//
-//            }
-//        });
-
     }
 
 

@@ -84,7 +84,7 @@ private Steps steps;
     public void onStepSelected(int position) {
     //Handle Communication Between Fragments
         // Create a Toast that displays the position that was clicked
-       // Toast.makeText(this, "Position clicked = " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Position clicked = " + position, Toast.LENGTH_SHORT).show();
 
 
         // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
@@ -94,11 +94,9 @@ private Steps steps;
 
         // Attach the Bundle to an intent
         final Intent intent = new Intent(this, RecipeDetailActivity.class);
-        ArrayList<Steps> movieArray = new ArrayList<Steps>();
 
-        intent.putParcelableArrayListExtra("array", movieArray);
         intent.putExtras(b);
-        intent.putExtra("Steps", position);
+        intent.putExtra("StepsPosition", position);
         startActivity(intent);
 
 }}

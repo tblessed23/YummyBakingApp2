@@ -100,14 +100,11 @@ OnStepsClickListener mStepsListener;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
         if (getArguments() != null) {
             recipes = getArguments().getParcelable("Recipes");
         }
 
+        assert recipes != null;
         ingredientsList = recipes.getmIngredients();
 
     }
@@ -120,12 +117,12 @@ OnStepsClickListener mStepsListener;
 
 //Set the Text of the Movie Object Variables
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
-        ingredientsTextView.setText(TextUtils.join("", recipes.getmIngredients()));
+        ingredientsTextView.setText(TextUtils.join("", ingredientsList));
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new RecipeStepsAdapter(getActivity(),this, recipes.getmSteps());
+        mAdapter = new RecipeStepsAdapter(this, recipes.getmSteps());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
