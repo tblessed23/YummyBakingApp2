@@ -1,5 +1,6 @@
 package com.example.android.yummybakingapp.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,15 @@ import android.widget.TextView;
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,22 +37,19 @@ public class RecipeDetailFragment extends Fragment {
 
     private Recipes recipes;
     private Steps steps;
-    private  List<Steps> movieArray;
+    Steps stepdetails;
     int position;
-
     private List<Recipes> recipesList;
-    private int stepsList;
-    private String mStepsAgain;
-
 
     TextView stepinstructionTextView;
-    Steps stepdetails;
-    int recipestepsId;
-    private List<Steps> stepsDescription;
-    int stepsstepsId;
 
-    private List<Integer> mImageIds;
-    private int mListIndex;
+    //Exoplayer Variables
+    private SimpleExoPlayer player;
+    protected PlayerView mPlayerView;
+    private boolean playWhenReady = true;
+    private int currentWindow = 0;
+    private long playbackPosition = 0;
+
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
@@ -67,11 +74,7 @@ public class RecipeDetailFragment extends Fragment {
 
 
             stepdetails = recipes.getmSteps().get(position);
-        //stepsDescription  = recipes.getmSteps();
 
-;
-
-//            stepdetails = recipes.getmSteps().get(0);
 
     }
 
@@ -81,14 +84,14 @@ public class RecipeDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
+        // Initialize the player view.
+        mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
+
         // Get a reference to the ImageView in the fragment layout
         stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
 
 
 
-//Set the Text of the Movie Object Variables
-//        TextView ingredientsTextView = rootView.findViewById(R.id.step_detail_text_view);
-//        ingredientsTextView.setText(stepdetails.getmDescription());
 
         // If a list of image ids exists, set the image resource to the correct item in that list
         // Otherwise, create a Log statement that indicates that the list was not found
@@ -121,7 +124,76 @@ public class RecipeDetailFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Util.SDK_INT >= 24) {
+            initializePlayer();
+        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        hideSystemUi();
+        if ((Util.SDK_INT < 24 || player == null)) {
+            initializePlayer();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT < 24) {
+            releasePlayer();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT < 24) {
+            releasePlayer();
+        }
+    }
+
+    //*****************************Begin Exoplayer*****************************************************//
+    private void initializePlayer() {
+        player = new SimpleExoPlayer.Builder(getActivity()).build();
+        mPlayerView.setPlayer(player);
+        Uri uri = Uri.parse(stepdetails.getmVideoUrl());
+        MediaSource mediaSource = buildMediaSource(uri);
+        player.setPlayWhenReady(playWhenReady);
+        player.seekTo(currentWindow, playbackPosition);
+        player.prepare(mediaSource, false, false);
+    }
+    private MediaSource buildMediaSource(Uri uri) {
+        String userAgent = Util.getUserAgent(getActivity(), "YummyBakingApp");
+        DataSource.Factory dataSourceFactory =
+                new DefaultDataSourceFactory(getActivity(), userAgent);
+        return new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(uri);
+    }
+
+    @SuppressLint("InlinedApi")
+    private void hideSystemUi() {
+        mPlayerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+
+    private void releasePlayer() {
+        if (player != null) {
+            playWhenReady = player.getPlayWhenReady();
+            playbackPosition = player.getCurrentPosition();
+            currentWindow = player.getCurrentWindowIndex();
+            player.release();
+            player = null;
+        }
+    }
+
+    //*********************************End Exoplayer********************************************//
 
     // Setter methods for keeping track of the list images this fragment can display and which image
     // in the list is currently being displayed
@@ -130,7 +202,7 @@ public class RecipeDetailFragment extends Fragment {
         recipesList = imageIds;
     }
 
-    public void setListIndex(int index) {
-        int stepdetailsone = index;
+    public void setListIndex(int position) {
+        int stepdetails = position;
     }
 }

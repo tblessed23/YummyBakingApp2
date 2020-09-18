@@ -59,11 +59,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
 
-            bundle.getInt("StepsPosition", position);
+            bundle.putInt("StepsPosition", position);
             ;
-
-
-
 
 
         // Create a new head BodyPartFragment
@@ -76,6 +73,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .add(R.id.step_detail_container, stepinstructionFragment)
                 .commit();
+
+
 
     }
 

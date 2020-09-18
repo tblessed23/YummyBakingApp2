@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Fragment layout that displays step detials-->
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--Fragment layout that displays step details&ndash;&gt;-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/step_detail_text_view"
-    tools:context=".fragments.RecipeDetailFragment">
+    tools:context=".RecipeDetailActivity">
+
+<LinearLayout
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:keepScreenOn="true">
+
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffeecc"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/step_detail_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textColor="#664400"
+            android:textSize="15sp"
+            tools:ignore="SmallSp"/>
 
 
-</TextView>
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
