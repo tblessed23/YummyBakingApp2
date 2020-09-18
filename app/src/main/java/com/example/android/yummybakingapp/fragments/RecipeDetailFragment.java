@@ -1,35 +1,32 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.annotation.SuppressLint;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +35,7 @@ public class RecipeDetailFragment extends Fragment {
 
     private Recipes recipes;
     private Steps steps;
+    private String stepsList;
     Steps stepdetails;
     int position;
     private List<Recipes> recipesList;
@@ -76,7 +74,7 @@ public class RecipeDetailFragment extends Fragment {
 
             stepdetails = recipes.getmSteps().get(position);
 
-
+            stepsList=recipes.getmSteps().get(position).getmVideoUrl();
 
 
     }
@@ -96,19 +94,36 @@ public class RecipeDetailFragment extends Fragment {
         //**********Next and Previous Buttons*****************//
 
         Button nextButton = rootView.findViewById(R.id.nextButton);
-
+        Button previousButton = rootView.findViewById(R.id.previousButton);
         nextButton.setOnClickListener(new View.OnClickListener()
         {
 
             @Override
             public void onClick(View v) {
                stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
-                mPlayerView.setPlayer(player);
+                initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
                 position++;
-        }
+
+
+        };
         });
 
-        Button previousButton = rootView.findViewById(R.id.previousButton);
+
+
+
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
+                initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
+                position--;
+
+
+
+
+
+            }
+        });
 
 
 
@@ -146,12 +161,18 @@ public class RecipeDetailFragment extends Fragment {
 
         return rootView;
     }
+    public static void switchTargetView(Player player, @Nullable PlayerView oldPlayerView,
+                                        @Nullable PlayerView newPlayerView){
+
+
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT >= 24) {
-            initializePlayer();
+            initializePlayer(Uri.parse(stepsList));
         }
     }
 
@@ -160,7 +181,7 @@ public class RecipeDetailFragment extends Fragment {
         super.onResume();
         hideSystemUi();
         if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer();
+            initializePlayer(Uri.parse(stepsList));
         }
     }
 
@@ -181,7 +202,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     //*****************************Begin Exoplayer*****************************************************//
-    private void initializePlayer() {
+    private void initializePlayer(Uri parse) {
         player = new SimpleExoPlayer.Builder(getActivity()).build();
         mPlayerView.setPlayer(player);
         Uri uri = Uri.parse(stepdetails.getmVideoUrl());
