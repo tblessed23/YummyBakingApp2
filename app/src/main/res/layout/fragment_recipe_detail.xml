@@ -31,10 +31,38 @@
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:textColor="#664400"
+            android:textColor="@color/textColor"
             android:textSize="15sp"
             tools:ignore="SmallSp"/>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/previousButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="7dp"
+            android:background="#ffeecc"
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="@string/previous_button"
+            android:textColor="@color/textColor" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffeecc"
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="@string/next_button"
+            android:textColor="@color/textColor" />
 
     </LinearLayout>
 

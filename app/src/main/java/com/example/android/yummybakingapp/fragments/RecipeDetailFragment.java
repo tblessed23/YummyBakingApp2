@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,6 +77,8 @@ public class RecipeDetailFragment extends Fragment {
             stepdetails = recipes.getmSteps().get(position);
 
 
+
+
     }
 
     @Override
@@ -90,6 +93,22 @@ public class RecipeDetailFragment extends Fragment {
         // Get a reference to the ImageView in the fragment layout
         stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
 
+        //**********Next and Previous Buttons*****************//
+
+        Button nextButton = rootView.findViewById(R.id.nextButton);
+
+        nextButton.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v) {
+               stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
+                mPlayerView.setPlayer(player);
+                position++;
+        }
+        });
+
+        Button previousButton = rootView.findViewById(R.id.previousButton);
 
 
 
@@ -100,6 +119,10 @@ public class RecipeDetailFragment extends Fragment {
            stepinstructionTextView.setText(stepdetails.getmDescription());
 
        }
+
+
+
+
 
 //            // Set a click listener on the image view
 //            textView.setOnClickListener(new View.OnClickListener() {

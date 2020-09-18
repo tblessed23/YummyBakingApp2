@@ -14,4 +14,8 @@
 
     <string name="intent_key">Steps</string>
     <string name="intent_key_recipes">Recipes</string>
+
+    <!--In fragment_recipe_detail.xml-->
+    <string name="previous_button">Previous</string>
+    <string name="next_button">Next</string>
 </resources>
