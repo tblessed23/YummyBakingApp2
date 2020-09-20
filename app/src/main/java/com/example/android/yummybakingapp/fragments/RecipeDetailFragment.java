@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -27,6 +25,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,10 +37,14 @@ public class RecipeDetailFragment extends Fragment {
     private String stepsList;
     Steps stepdetails;
     int position;
+    private String videoLink;
+    private String stepInstruction;
     private List<Recipes> recipesList;
+    private  List<Steps> stepsListTwo;
+    Uri aList1;
 
     TextView stepinstructionTextView;
-
+    TextView test;
     //Exoplayer Variables
     private SimpleExoPlayer player;
     protected PlayerView mPlayerView;
@@ -52,6 +55,10 @@ public class RecipeDetailFragment extends Fragment {
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
+
+    // Final Strings to store state information about the list of images and list index
+    public static final String RECIPE_ID_LIST = "recipe_ids";
+    public static final String LIST_INDEX = "list_index";
 
 
 
@@ -75,6 +82,7 @@ public class RecipeDetailFragment extends Fragment {
             stepdetails = recipes.getmSteps().get(position);
 
             stepsList=recipes.getmSteps().get(position).getmVideoUrl();
+            //stepsListTwo = TextUtils.join("", stepsList);
 
 
     }
@@ -85,38 +93,65 @@ public class RecipeDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
+        // Load the saved state (the list of images and list index) if there is one
+        if(savedInstanceState != null) {
+            recipes = savedInstanceState.getParcelable((RECIPE_ID_LIST));
+            position = savedInstanceState.getInt(LIST_INDEX);
+        }
+
         // Initialize the player view.
         mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
 
         // Get a reference to the ImageView in the fragment layout
         stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
 
+            initializePlayer(Uri.parse(recipes.getmSteps().get(0).getmVideoUrl()));
+
+
+
         //**********Next and Previous Buttons*****************//
 
         Button nextButton = rootView.findViewById(R.id.nextButton);
         Button previousButton = rootView.findViewById(R.id.previousButton);
-        nextButton.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v) {
-               stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
-                initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
-                position++;
 
 
-        };
-        });
+
+        // If a list of image ids exists, set the image resource to the correct item in that list
+        // Otherwise, create a Log statement that indicates that the list was not found
+        if(recipes != null){
+
+            // Set a click listener on the image view
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
 
+                    position++;
+                    if(position == recipes.getmSteps().size()) {
+                        position=0;
+                    }
+
+                    stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
+                    initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
+
+                }
+            });
+
+        } else {
+            Log.v(TAG, "This fragment has a null list of image id's");
+        }
 
 
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(position < recipes.getmSteps().size()) {
+                    position--;
+                }
+
                 stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
                 initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
-                position--;
 
 
 
@@ -137,42 +172,14 @@ public class RecipeDetailFragment extends Fragment {
 
 
 
-
-
-//            // Set a click listener on the image view
-//            textView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    // Increment position as long as the index remains <= the size of the image ids list
-//                    if(mListIndex < mImageIds.size()-1) {
-//                        mListIndex++;
-//                    } else {
-//                        // The end of list has been reached, so return to beginning index
-//                        mListIndex = 0;
-//                    }
-//                    // Set the image resource to the new list item
-//                    textView.setText(stepdetails.getmDescription());
-//                }
-//            });
-
-        //} else {
-        //    Log.v(TAG, "This fragment has a null list of image id's");
-       // }
-
         return rootView;
     }
-    public static void switchTargetView(Player player, @Nullable PlayerView oldPlayerView,
-                                        @Nullable PlayerView newPlayerView){
-
-
-    }
-
 
     @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT >= 24) {
-            initializePlayer(Uri.parse(stepsList));
+            initializePlayer(aList1);
         }
     }
 
@@ -181,7 +188,7 @@ public class RecipeDetailFragment extends Fragment {
         super.onResume();
         hideSystemUi();
         if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer(Uri.parse(stepsList));
+            initializePlayer(aList1);
         }
     }
 
@@ -202,11 +209,10 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     //*****************************Begin Exoplayer*****************************************************//
-    private void initializePlayer(Uri parse) {
+    private void initializePlayer(Uri aList1) {
         player = new SimpleExoPlayer.Builder(getActivity()).build();
         mPlayerView.setPlayer(player);
-        Uri uri = Uri.parse(stepdetails.getmVideoUrl());
-        MediaSource mediaSource = buildMediaSource(uri);
+        MediaSource mediaSource = buildMediaSource(aList1);
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
         player.prepare(mediaSource, false, false);
@@ -239,14 +245,12 @@ public class RecipeDetailFragment extends Fragment {
 
     //*********************************End Exoplayer********************************************//
 
-    // Setter methods for keeping track of the list images this fragment can display and which image
-    // in the list is currently being displayed
-
-    public void setImageIds(List<Recipes> imageIds) {
-        recipesList = imageIds;
-    }
-
-    public void setListIndex(int position) {
-        int stepdetails = position;
+    /**
+     * Save the current state of this fragment
+     */
+    @Override
+    public void onSaveInstanceState(Bundle currentState) {
+        currentState.putParcelable(RECIPE_ID_LIST, recipes);
+        currentState.putInt(LIST_INDEX, position);
     }
 }

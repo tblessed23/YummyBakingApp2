@@ -42,26 +42,27 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
 
 
-
         if (recipes == null) {
             // Movie data unavailable
             closeOnError();
             return;
         }
         Bundle bundle = new Bundle();
-        if (recipes!= null)  {
+        if (recipes != null) {
             bundle.putParcelable("Recipes", recipes);
 
 
         }
-        if (steps!= null)  {
+        if (steps != null) {
             bundle.putParcelable("Steps", steps);
         }
 
 
-            bundle.putInt("StepsPosition", position);
-            ;
+        bundle.putInt("StepsPosition", position);
+        ;
 
+  // Only create new fragments when there is no previously saved state
+        if(savedInstanceState == null) {
 
         // Create a new head BodyPartFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
@@ -74,7 +75,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .add(R.id.step_detail_container, stepinstructionFragment)
                 .commit();
 
-
+    }
 
     }
 
