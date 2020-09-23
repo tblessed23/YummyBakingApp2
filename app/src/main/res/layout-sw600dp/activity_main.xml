@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/recipe_steps_fragment"
         android:name="com.example.android.yummybakingapp.fragments.RecipeStepsFragment"
-        android:layout_width="400dp"
+        android:layout_width="200dp"
         android:layout_height="match_parent" />
 
     <!-- A small divider -->
@@ -22,9 +22,9 @@
         android:background="@android:color/darker_gray" />
 
     <!-- LinearLayout that arranges all three Android-Me body part images vertically -->
-    <!--This id is in activity_recipe_detail-->
+    <!--This id is in frame_activity_recipe_detail-->
     <LinearLayout
-        android:id="@+id/recipe_instructions_linear_layout"
+        android:id="@+id/recipe_instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -38,10 +38,12 @@
         <!-- Three vertically arranged body part fragments - the frame layouts are containers -
         one for each Android-Me part (head, body, legs) -->
 
-        <FrameLayout android:id="@+id/step_detail_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside"/>
+        <!-- The static RecipeStepsFragment -->
+        <fragment
+            android:id="@+id/recipe_detail_fragment"
+            android:name="com.example.android.yummybakingapp.fragments.RecipeDetailFragment"
+            android:layout_width="400dp"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

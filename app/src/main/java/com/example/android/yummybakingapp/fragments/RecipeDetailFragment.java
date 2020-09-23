@@ -37,20 +37,17 @@ public class RecipeDetailFragment extends Fragment {
     private String stepsList;
     Steps stepdetails;
     int position;
-    private String videoLink;
-    private String stepInstruction;
-    private List<Recipes> recipesList;
-    private  List<Steps> stepsListTwo;
-    Uri aList1;
+
+    Uri videoLink;
 
     TextView stepinstructionTextView;
-    TextView test;
+
     //Exoplayer Variables
     private SimpleExoPlayer player;
     protected PlayerView mPlayerView;
-    private boolean playWhenReady = true;
-    private int currentWindow = 0;
-    private long playbackPosition = 0;
+    private boolean playWhenReady;
+    private int currentWindow;
+    private long playbackPosition;
 
 
     // Tag for logging
@@ -59,7 +56,10 @@ public class RecipeDetailFragment extends Fragment {
     // Final Strings to store state information about the list of images and list index
     public static final String RECIPE_ID_LIST = "recipe_ids";
     public static final String LIST_INDEX = "list_index";
-
+    public static final String URI_LINKS = "video_links";
+   // public static final String EXO_CURRENT_WINDOW = "current_window";
+    //public static final String EXO_PLAY_WHEN_READY = "play_when_ready";
+   // public static final String EXO_PLAYBACK_POSITION = "playback_position";
 
 
     public RecipeDetailFragment() {
@@ -82,7 +82,8 @@ public class RecipeDetailFragment extends Fragment {
             stepdetails = recipes.getmSteps().get(position);
 
             stepsList=recipes.getmSteps().get(position).getmVideoUrl();
-            //stepsListTwo = TextUtils.join("", stepsList);
+
+
 
 
     }
@@ -96,17 +97,21 @@ public class RecipeDetailFragment extends Fragment {
         // Load the saved state (the list of images and list index) if there is one
         if(savedInstanceState != null) {
             recipes = savedInstanceState.getParcelable((RECIPE_ID_LIST));
-            position = savedInstanceState.getInt(LIST_INDEX);
+           // position = savedInstanceState.getInt(LIST_INDEX);
+            videoLink = savedInstanceState.getParcelable(URI_LINKS);
+           // currentWindow = savedInstanceState.getInt(EXO_CURRENT_WINDOW);
+           // playWhenReady = savedInstanceState.getBoolean(EXO_PLAY_WHEN_READY);
+           // playbackPosition = savedInstanceState.getLong(EXO_PLAYBACK_POSITION);
         }
+
 
         // Initialize the player view.
         mPlayerView = (PlayerView) rootView.findViewById(R.id.playerView);
 
-        // Get a reference to the ImageView in the fragment layout
+        // Get a reference to the TextView in the fragment layout
         stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
 
-            initializePlayer(Uri.parse(recipes.getmSteps().get(0).getmVideoUrl()));
-
+        videoLink =  Uri.parse(recipes.getmSteps().get(position).getmVideoUrl());
 
 
         //**********Next and Previous Buttons*****************//
@@ -115,16 +120,15 @@ public class RecipeDetailFragment extends Fragment {
         Button previousButton = rootView.findViewById(R.id.previousButton);
 
 
-
-        // If a list of image ids exists, set the image resource to the correct item in that list
-        // Otherwise, create a Log statement that indicates that the list was not found
         if(recipes != null){
 
             // Set a click listener on the image view
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (player != null) {
+                        player.stop();
+                    }
 
                     position++;
                     if(position == recipes.getmSteps().size()) {
@@ -145,7 +149,9 @@ public class RecipeDetailFragment extends Fragment {
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (player != null) {
+                    player.stop();
+                }
                 if(position < recipes.getmSteps().size()) {
                     position--;
                 }
@@ -179,7 +185,7 @@ public class RecipeDetailFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT >= 24) {
-            initializePlayer(aList1);
+            initializePlayer(videoLink);
         }
     }
 
@@ -188,7 +194,7 @@ public class RecipeDetailFragment extends Fragment {
         super.onResume();
         hideSystemUi();
         if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer(aList1);
+            initializePlayer(videoLink);
         }
     }
 
@@ -209,13 +215,13 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     //*****************************Begin Exoplayer*****************************************************//
-    private void initializePlayer(Uri aList1) {
+    private void initializePlayer(Uri videoLink) {
         player = new SimpleExoPlayer.Builder(getActivity()).build();
         mPlayerView.setPlayer(player);
-        MediaSource mediaSource = buildMediaSource(aList1);
+        MediaSource mediaSource = buildMediaSource(videoLink);
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
-        player.prepare(mediaSource, false, false);
+        player.prepare(mediaSource, true, true);
     }
     private MediaSource buildMediaSource(Uri uri) {
         String userAgent = Util.getUserAgent(getActivity(), "YummyBakingApp");
@@ -252,5 +258,9 @@ public class RecipeDetailFragment extends Fragment {
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putParcelable(RECIPE_ID_LIST, recipes);
         currentState.putInt(LIST_INDEX, position);
+        currentState.putParcelable(URI_LINKS, videoLink);
+        //currentState.putInt(EXO_CURRENT_WINDOW, currentWindow);
+       // currentState.putBoolean(EXO_PLAY_WHEN_READY, playWhenReady);
+       // currentState.putLong(EXO_PLAYBACK_POSITION, playbackPosition);
     }
 }

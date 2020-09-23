@@ -1,20 +1,10 @@
 package com.example.android.yummybakingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Movie;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
@@ -22,7 +12,6 @@ import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
@@ -41,10 +30,10 @@ private Steps steps;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_steps);
+        setContentView(R.layout.frame_activity_recipe_steps);
 
         // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.recipe_instructions_linear_layout) != null) {
+        if(findViewById(R.id.recipe_instructions) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
@@ -59,7 +48,7 @@ private Steps steps;
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
                 fragmentManager.beginTransaction()
-                        .add(R.id.step_detail_container, stepinstructionFragment)
+                        .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
                         .commit();
 
             }
@@ -125,7 +114,7 @@ private Steps steps;
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .add(R.id.step_detail_container, stepinstructionFragment)
+                    .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
                     .commit();
 
 

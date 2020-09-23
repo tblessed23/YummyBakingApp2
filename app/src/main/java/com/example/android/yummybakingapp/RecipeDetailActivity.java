@@ -5,16 +5,11 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
-import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -27,9 +22,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_detail);
+        setContentView(R.layout.frame_activity_recipe_detail);
 
-        Intent intent = getIntent();
+
+
+
+            Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
         }
@@ -61,9 +59,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         bundle.putInt("StepsPosition", position);
         ;
 
-  // Only create new fragments when there is no previously saved state
+// Only create new fragments when there is no previously saved state
         if(savedInstanceState == null) {
-
         // Create a new head BodyPartFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
         stepinstructionFragment.setArguments(bundle);
@@ -72,7 +69,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
-                .add(R.id.step_detail_container, stepinstructionFragment)
+                .addToBackStack(null)
+                .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
                 .commit();
 
     }
