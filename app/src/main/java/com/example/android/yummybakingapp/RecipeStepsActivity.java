@@ -25,31 +25,34 @@ private Steps steps;
     private List<Integer> mImageIds;
     private int mListIndex;
     private boolean mTwoPane;
+    int position;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.frame_activity_recipe_steps);
+        setContentView(R.layout.activity_recipe_steps);
 
         // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.recipe_instructions) != null) {
+        if(findViewById(R.id.root) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
+                Bundle arguments = new Bundle();
+                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, String.valueOf(position));
 
-                // Create a new head BodyPartFragment
-                RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
-                //stepinstructionFragment.setArguments(bundle);
-
-                // Add the fragment to its container using a FragmentManager and a Transaction
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-                fragmentManager.beginTransaction()
-                        .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
-                        .commit();
+//                // Create a new head BodyPartFragment
+//                RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
+//                //stepinstructionFragment.setArguments(bundle);
+//
+//                // Add the fragment to its container using a FragmentManager and a Transaction
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//
+//                fragmentManager.beginTransaction()
+//                        .add(R.id.root, stepinstructionFragment)
+//                        .commit();
 
             }
 

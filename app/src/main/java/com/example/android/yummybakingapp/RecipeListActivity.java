@@ -7,16 +7,13 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.adapters.RecipeAdapter;
-import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
-import com.example.android.yummybakingapp.model.Steps;
 import com.example.android.yummybakingapp.network.GetDataService;
 import com.example.android.yummybakingapp.network.NetworkHelper;
 import com.example.android.yummybakingapp.network.RecipesLoader;
@@ -62,7 +59,7 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_recipe_list);
 
         setRecyclerView();
 

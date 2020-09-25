@@ -1,6 +1,7 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 
 import java.util.ArrayList;
@@ -52,14 +54,17 @@ public class RecipeDetailFragment extends Fragment {
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
+    /**
+     * The fragment argument representing the item ID that this fragment
+     * represents.
+     */
+    public static final String ARG_ITEM_ID = "item_id";
 
-    // Final Strings to store state information about the list of images and list index
-    public static final String RECIPE_ID_LIST = "recipe_ids";
-    public static final String LIST_INDEX = "list_index";
-    public static final String URI_LINKS = "video_links";
-   // public static final String EXO_CURRENT_WINDOW = "current_window";
-    //public static final String EXO_PLAY_WHEN_READY = "play_when_ready";
-   // public static final String EXO_PLAYBACK_POSITION = "playback_position";
+
+    // Saved instance state keys.
+    public static final String EXO_CURRENT_WINDOW = "current_window";
+    public static final String EXO_PLAY_WHEN_READY = "play_when_ready";
+   public static final String EXO_PLAYBACK_POSITION = "playback_position";
 
 
     public RecipeDetailFragment() {
@@ -78,6 +83,19 @@ public class RecipeDetailFragment extends Fragment {
 
         }
 
+        if (getArguments().containsKey(ARG_ITEM_ID)) {
+            // Load the dummy content specified by the fragment
+            // arguments. In a real-world scenario, use a Loader
+            // to load content from a content provider.
+            steps= getArguments().getParcelable("Steps");
+            recipes = getArguments().getParcelable("Recipes");
+            position = getArguments().getInt("StepsPosition");
+
+            Activity activity = this.getActivity();
+
+            }
+
+
 
             stepdetails = recipes.getmSteps().get(position);
 
@@ -94,14 +112,11 @@ public class RecipeDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
 
-        // Load the saved state (the list of images and list index) if there is one
+        //Saved Instance State
         if(savedInstanceState != null) {
-            recipes = savedInstanceState.getParcelable((RECIPE_ID_LIST));
-           // position = savedInstanceState.getInt(LIST_INDEX);
-            videoLink = savedInstanceState.getParcelable(URI_LINKS);
-           // currentWindow = savedInstanceState.getInt(EXO_CURRENT_WINDOW);
-           // playWhenReady = savedInstanceState.getBoolean(EXO_PLAY_WHEN_READY);
-           // playbackPosition = savedInstanceState.getLong(EXO_PLAYBACK_POSITION);
+           currentWindow = savedInstanceState.getInt(EXO_CURRENT_WINDOW);
+            playWhenReady = savedInstanceState.getBoolean(EXO_PLAY_WHEN_READY);
+            playbackPosition = savedInstanceState.getLong(EXO_PLAYBACK_POSITION);
         }
 
 
@@ -256,11 +271,8 @@ public class RecipeDetailFragment extends Fragment {
      */
     @Override
     public void onSaveInstanceState(Bundle currentState) {
-        currentState.putParcelable(RECIPE_ID_LIST, recipes);
-        currentState.putInt(LIST_INDEX, position);
-        currentState.putParcelable(URI_LINKS, videoLink);
-        //currentState.putInt(EXO_CURRENT_WINDOW, currentWindow);
-       // currentState.putBoolean(EXO_PLAY_WHEN_READY, playWhenReady);
-       // currentState.putLong(EXO_PLAYBACK_POSITION, playbackPosition);
+        currentState.putInt(EXO_CURRENT_WINDOW, currentWindow);
+        currentState.putBoolean(EXO_PLAY_WHEN_READY, playWhenReady);
+        currentState.putLong(EXO_PLAYBACK_POSITION, playbackPosition);
     }
 }

@@ -73,7 +73,7 @@ import retrofit2.Response;
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //                             Bundle savedInstanceState) {
 //
-//        View rootView = inflater.inflate(R.layout.activity_item_list, container, false);
+//        View rootView = inflater.inflate(R.layout.activity_recipe_list, container, false);
 //
 //
 //        setRecyclerView();

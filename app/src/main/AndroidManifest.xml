@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RecipeDetailActivity"
-            android:parentActivityName=".RecipeDetailActivity" />
+            android:parentActivityName=".RecipeDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            />
         <activity android:name=".RecipeStepsActivity"
             android:parentActivityName=".RecipeListActivity"
             />

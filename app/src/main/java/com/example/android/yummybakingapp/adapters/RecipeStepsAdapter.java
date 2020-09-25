@@ -31,30 +31,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     //private final Context mContext;
     private ListItemClickListener mOnClickListener;
 
-    // private final boolean mTwoPane;
-
-//    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            Recipes item = (Recipes) view.getTag();
-//            if (mTwoPane) {
-//                Bundle arguments = new Bundle();
-//                arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, item.getmId());
-//                ItemDetailFragment fragment = new ItemDetailFragment();
-//                fragment.setArguments(arguments);
-//                mParentActivity.getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.item_detail_container, fragment)
-//                        .commit();
-//            } else {
-//                Context context = view.getContext();
-//                Intent intent = new Intent(context, ItemDetailActivity.class);
-//                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.getmId());
-//
-//                context.startActivity(intent);
-//            }
-//        }
-//    };
-
     /**
      * Constructor for MovieAdapter that accepts a number of items to display
      and the specification
@@ -90,8 +66,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         //this.mContext = context;
         this.mOnClickListener = mOnClickListener;
         mDataset = steps;
-
-        //mTwoPane = twoPane;
     }
 
 
@@ -129,7 +103,6 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     @Override
     public int getItemCount() {
-        // return mDataset.size();
         return mDataset == null ? 0 : mDataset.size();
     }
 
