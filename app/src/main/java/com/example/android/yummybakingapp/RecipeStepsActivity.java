@@ -40,19 +40,21 @@ private Steps steps;
 
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
-                Bundle arguments = new Bundle();
-                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, String.valueOf(position));
+//                Bundle arguments = new Bundle();
+//                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, String.valueOf(position));
 
-//                // Create a new head BodyPartFragment
-//                RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
-//                //stepinstructionFragment.setArguments(bundle);
-//
-//                // Add the fragment to its container using a FragmentManager and a Transaction
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.root, stepinstructionFragment)
-//                        .commit();
+                // Create a new head BodyPartFragment
+                RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
+                //stepinstructionFragment.setArguments(bundle);
+
+                // Add the fragment to its container using a FragmentManager and a Transaction
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                fragmentManager.beginTransaction()
+                        .add(R.id.root, stepinstructionFragment)
+                        .commit();
+
+
 
             }
 
