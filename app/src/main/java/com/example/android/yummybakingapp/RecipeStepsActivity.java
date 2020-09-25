@@ -44,15 +44,15 @@ private Steps steps;
 //                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, String.valueOf(position));
 
                 // Create a new head BodyPartFragment
-                RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
+               RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
                 //stepinstructionFragment.setArguments(bundle);
 
                 // Add the fragment to its container using a FragmentManager and a Transaction
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
-                fragmentManager.beginTransaction()
-                        .add(R.id.root, stepinstructionFragment)
-                        .commit();
+               fragmentManager.beginTransaction()
+                        .add(R.id.card_recipe_stepsfragment, stepinstructionFragment)
+                       .commit();
 
 
 
@@ -109,17 +109,17 @@ private Steps steps;
 
         // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list
         if (mTwoPane) {
-            // Create two=pane interaction
+           // Create two=pane interaction
 
             RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
 
             //stepinstructionFragment.setArguments(bundle);
 
-            // Add the fragment to its container using a FragmentManager and a Transaction
+             //Add the fragment to its container using a FragmentManager and a Transaction
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
+                    .add(R.id.root, stepinstructionFragment)
                     .commit();
 
 
