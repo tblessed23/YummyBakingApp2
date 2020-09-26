@@ -59,7 +59,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         bundle.putInt("StepsPosition", position);
         ;
 
-// Only create new fragments when there is no previously saved state
+        // Only create new fragments when there is no previously saved state
         if(savedInstanceState == null) {
         // Create a new head BodyPartFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
@@ -69,8 +69,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .add(R.id.recipe_instructions_linear_layout, stepinstructionFragment)
+               // .addToBackStack(null)
+                .add(R.id.recipe_detail_fragment, stepinstructionFragment)
                 .commit();
 
     }

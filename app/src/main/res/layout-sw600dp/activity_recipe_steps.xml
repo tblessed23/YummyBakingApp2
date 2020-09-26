@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:baselineAligned="true"
+    android:baselineAligned="false"
     android:layout_height="match_parent"
     tools:context=".RecipeStepsActivity"
     >
@@ -12,17 +12,11 @@
     This layout is a two-pane layout for the master/detail flow.
     -->
 
-<!--    <fragment-->
-<!--        android:id="@+id/recipe_steps_fragment"-->
-<!--        android:name="com.example.android.yummybakingapp.fragments.RecipeStepsFragment"-->
-<!--        android:layout_width="200dp"-->
-<!--        android:layout_height="match_parent" />-->
-
     <FrameLayout
         android:id="@+id/recipe_steps_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2" />
+        android:layout_weight="0.4" />
 
     <!-- A small divider -->
     <View
@@ -30,129 +24,15 @@
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray" />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/step_detail_container"
-        android:name="com.example.android.yummybakingapp.fragments.RecipeDetailFragment"
-        android:layout_width="300dp"
-        android:layout_height="match_parent" />
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/recipe_instructions_linear_layout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="0.6" />-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/fragment_recipe_steps_id"-->
-<!--        android:orientation="vertical">-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/card_recipe_stepsfragment"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/ingredients_TextView"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="@dimen/text_margin"-->
-<!--                android:text="This is the fragment detail yepyep"-->
-<!--                android:textAppearance="?attr/textAppearanceListItem" />-->
-
-<!--            &lt;!&ndash; A RecyclerView with some commonly used attributes &ndash;&gt;-->
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:id="@+id/my_recycler_view"-->
-<!--                tools:context=".RecipeStepsActivity"-->
-<!--                tools:listitem="@layout/cardview_steps_list"-->
-<!--                />-->
-<!--        </LinearLayout></LinearLayout>-->
-
-    <!-- The static RecipeStepsFragment -->
-<!--    <fragment-->
-<!--        android:id="@+id/recipe_steps_fragment"-->
-<!--        android:name="com.example.android.yummybakingapp.fragments.RecipeStepsFragment"-->
-<!--        android:layout_width="200dp"-->
-<!--        android:layout_height="match_parent" />-->
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6" />
 
 
 
 
-    <!-- The static RecipeDetailFragment activity_recipe_detail -->
-<!--    <fragment-->
-<!--        android:id="@+id/recipe_instructions_linear_layout"-->
-<!--        android:name="com.example.android.yummybakingapp.fragments.RecipeDetailFragment"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="match_parent" />-->
 
-
-<!--    <FrameLayout android:id="@+id/step_detail_container"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:scaleType="centerInside"/>-->
-
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/root"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.exoplayer2.ui.PlayerView-->
-<!--                android:id="@+id/playerView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="400dp" />-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="#ffeecc"-->
-<!--                android:orientation="vertical">-->
-
-<!--                <TextView android:id="@+id/step_detail_text_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingLeft="4dp"-->
-<!--                    android:paddingRight="4dp"-->
-<!--                    android:textColor="@color/textColor"-->
-<!--                    android:textSize="15sp"-->
-<!--                   />-->
-
-
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_marginTop="30dp">-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/previousButton"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginRight="20dp"-->
-<!--                    android:layout_marginLeft="7dp"-->
-<!--                    android:background="#ffeecc"-->
-<!--                    style="?attr/materialButtonOutlinedStyle"-->
-<!--                    android:text="@string/previous_button"-->
-<!--                    android:textColor="@color/textColor" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/nextButton"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="#ffeecc"-->
-<!--                    style="?attr/materialButtonOutlinedStyle"-->
-<!--                    android:text="@string/next_button"-->
-<!--                    android:textColor="@color/textColor" />-->
-
-<!--            </LinearLayout>-->
-
-<!--        </LinearLayout>-->
 
 </LinearLayout>

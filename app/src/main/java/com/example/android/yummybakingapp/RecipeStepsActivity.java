@@ -22,10 +22,8 @@ private List<Steps> mDataset;
 
 private Recipes recipes;
 private Steps steps;
-    private List<Integer> mImageIds;
-    private int mListIndex;
-    private boolean mTwoPane;
-    int position;
+private boolean mTwoPane;
+int position;
 
 
     @Override
@@ -33,31 +31,27 @@ private Steps steps;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
+
         // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.root) != null) {
+        if(findViewById(R.id.step_detail_container) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
-//                Bundle arguments = new Bundle();
-//                arguments.putString(RecipeDetailFragment.ARG_ITEM_ID, String.valueOf(position));
+                Intent intent = getIntent();
+                if (intent == null) {
+                    closeOnError();
+                }
 
-                // Create a new head BodyPartFragment
-               RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
-                //stepinstructionFragment.setArguments(bundle);
+                // Using getParcelableExtra(String key) method
+                if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
+                    recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
+                }
 
-                // Add the fragment to its container using a FragmentManager and a Transaction
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-               fragmentManager.beginTransaction()
-                        .add(R.id.card_recipe_stepsfragment, stepinstructionFragment)
-                       .commit();
-
-
-
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
             }
-
         } else {
             mTwoPane = false;
         }
@@ -103,25 +97,34 @@ private Steps steps;
     //Define the behavior of onStepSelected
     @Override
     public void onStepSelected(int position) {
-        //Handle Communication Between Fragments
-        // Create a Toast that displays the position that was clicked
-        //Toast.makeText(this, "Position clicked = " + position, Toast.LENGTH_SHORT).show();
+        //*****Handle Communication Between Fragments*****//
 
         // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list
         if (mTwoPane) {
            // Create two=pane interaction
 
+            Bundle bundle = new Bundle();
+            // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
+            bundle.putParcelable("Recipes", recipes);
+
+
+            // Attach the Bundle to an intent
+            final Intent intent = new Intent(this, RecipeDetailActivity.class);
+
+            intent.putExtras(bundle);
+            intent.putExtra("StepsPosition", position);
+            startActivity(intent);
+
+
             RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
+            stepinstructionFragment.setArguments(bundle);
 
-            //stepinstructionFragment.setArguments(bundle);
-
-             //Add the fragment to its container using a FragmentManager and a Transaction
+            //Add the fragment to its container using a FragmentManager and a Transaction
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .add(R.id.root, stepinstructionFragment)
+                    .replace(R.id.step_detail_container, stepinstructionFragment)
                     .commit();
-
 
         } else {
 
