@@ -20,7 +20,6 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 private List<Recipes> mValues;
 private List<Steps> mDataset;
 
-    private Bundle recipeDataBundle;
 private Recipes recipes;
 private Steps steps;
 
@@ -33,9 +32,6 @@ int position;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
 
-
-
-        recipeDataBundle = getIntent().getExtras();
 
         //Intent for recipe data
 
@@ -58,7 +54,7 @@ int position;
         }
 
         // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.step_detail_container) != null) {
+        if(findViewById(R.id.root) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
@@ -74,7 +70,7 @@ int position;
                 RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
                 detailFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.step_detail_container, detailFragment).commit();
+                        .replace(R.id.root, detailFragment).commit();
 
 
 //                getSupportFragmentManager().beginTransaction()
@@ -95,9 +91,6 @@ int position;
        detailFragment.setArguments(bundle);
        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.recipe_steps_fragment, detailFragment).commit();
-
-
-
     }
 
 
@@ -118,15 +111,7 @@ int position;
             Bundle bundle = new Bundle();
             // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
             bundle.putParcelable("Recipes", recipes);
-
-
-            // Attach the Bundle to an intent
-            final Intent intent = new Intent(this, RecipeDetailFragment.class);
-
-            intent.putExtras(bundle);
-            intent.putExtra("StepsPosition", position);
-            startActivity(intent);
-
+            bundle.putInt("StepsPosition", position);
 
             RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
             stepinstructionFragment.setArguments(bundle);
@@ -135,7 +120,7 @@ int position;
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.step_detail_container, stepinstructionFragment)
+                    .replace(R.id.root, stepinstructionFragment)
                     .commit();
 
         } else {

@@ -17,6 +17,7 @@
         android:id="@+id/recipe_steps_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:layout_weight="0.4" />
 
     <!-- A small divider -->
@@ -27,16 +28,10 @@
 
 <!--    &lt;!&ndash;id located inside activity_recipe_detail (can be changed back to step_detail_container)&ndash;&gt;-->
     <FrameLayout
-        android:id="@+id/step_detail_container"
+        android:id="@+id/root"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.6" />
-
-
-
-
-
-
 
 
 </LinearLayout>
