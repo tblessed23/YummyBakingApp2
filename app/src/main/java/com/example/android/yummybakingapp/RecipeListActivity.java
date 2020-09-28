@@ -18,7 +18,7 @@ import com.example.android.yummybakingapp.network.GetDataService;
 import com.example.android.yummybakingapp.network.NetworkHelper;
 import com.example.android.yummybakingapp.network.RecipesLoader;
 import com.example.android.yummybakingapp.network.RetrofitGetData;
-import com.example.android.yummybakingapp.widget.RecipeWidgetService;
+
 
 import java.util.ArrayList;
 import java.util.List;

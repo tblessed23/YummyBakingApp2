@@ -11,6 +11,7 @@ import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.example.android.yummybakingapp.network.Constants;
 
 import java.util.List;
 
@@ -19,8 +20,9 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 private List<Recipes> mValues;
 private List<Steps> mDataset;
 
-
+    private Bundle recipeDataBundle;
 private Recipes recipes;
+private Steps steps;
 
 private boolean mTwoPane;
 int position;
@@ -33,7 +35,9 @@ int position;
 
 
 
+        recipeDataBundle = getIntent().getExtras();
 
+        //Intent for recipe data
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -58,25 +62,38 @@ int position;
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
+            Bundle bundle = new Bundle();
+            if (recipes != null) {
+                bundle.putParcelable("Recipes", recipes);
+
+            }
+
             // Only create new fragments when there is no previously saved state
             if(savedInstanceState == null) {
 
-
+                RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
+                detailFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
+                        .add(R.id.step_detail_container, detailFragment).commit();
+
+
+//                getSupportFragmentManager().beginTransaction()
+//                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
             }
         } else {
             mTwoPane = false;
         }
 
+
+        //Pass data to the RecipeStepsFragment to Show Recipe Steps, Single-Pane
         Bundle bundle = new Bundle();
         if (recipes != null) {
             bundle.putParcelable("Recipes", recipes);
 
         }
         RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
-        detailFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction()
+       detailFragment.setArguments(bundle);
+       getSupportFragmentManager().beginTransaction()
                 .replace(R.id.recipe_steps_fragment, detailFragment).commit();
 
 
@@ -104,7 +121,7 @@ int position;
 
 
             // Attach the Bundle to an intent
-            final Intent intent = new Intent(this, RecipeDetailActivity.class);
+            final Intent intent = new Intent(this, RecipeDetailFragment.class);
 
             intent.putExtras(bundle);
             intent.putExtra("StepsPosition", position);

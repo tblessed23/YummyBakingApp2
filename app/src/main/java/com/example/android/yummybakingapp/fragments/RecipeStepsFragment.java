@@ -28,7 +28,7 @@ import com.example.android.yummybakingapp.adapters.RecipeStepsAdapter;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-import com.example.android.yummybakingapp.widget.RecipeWidgetService;
+//import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,7 +137,7 @@ OnStepsClickListener mStepsListener;
 //            String line = "- " + quantity + " " + measure + " " + ingredientName;
 //            stringBuilder.append( line + "\n");
 //       }
-        RecipeWidgetService.startActionShowRecipes(getActivity());
+       // RecipeWidgetService.startActionShowRecipes(getActivity());
 
         return rootView;
     }
