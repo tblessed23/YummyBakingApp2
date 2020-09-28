@@ -18,6 +18,7 @@ import com.example.android.yummybakingapp.network.GetDataService;
 import com.example.android.yummybakingapp.network.NetworkHelper;
 import com.example.android.yummybakingapp.network.RecipesLoader;
 import com.example.android.yummybakingapp.network.RetrofitGetData;
+import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +91,7 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
             loadingIndicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
+
 
     }
 

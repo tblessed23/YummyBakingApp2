@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffeecc"
+    android:id="@+id/widget_layout"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/widget_baking_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"
+        tools:text="123" />
+
+    <TextView
+        android:id="@+id/widget_baking_ingredientlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"
+        tools:text="123" />
+
+    <TextView
+        android:id="@+id/widget_default_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"
+        android:text="Choose your recipe inside the app!!! Once chosen it will display here!" />
+
+
+
+</LinearLayout>

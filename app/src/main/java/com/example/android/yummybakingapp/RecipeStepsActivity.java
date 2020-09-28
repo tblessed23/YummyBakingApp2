@@ -21,7 +21,7 @@ private List<Steps> mDataset;
 
 
 private Recipes recipes;
-private Steps steps;
+
 private boolean mTwoPane;
 int position;
 
@@ -32,29 +32,7 @@ int position;
         setContentView(R.layout.activity_recipe_steps);
 
 
-        // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.step_detail_container) != null) {
-            // This LinearLayout will only initially exist in the two-pane tablet case
-            mTwoPane = true;
 
-            // Only create new fragments when there is no previously saved state
-            if(savedInstanceState == null) {
-                Intent intent = getIntent();
-                if (intent == null) {
-                    closeOnError();
-                }
-
-                // Using getParcelableExtra(String key) method
-                if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
-                    recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
-                }
-
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
-            }
-        } else {
-            mTwoPane = false;
-        }
 
 
         Intent intent = getIntent();
@@ -74,6 +52,23 @@ int position;
             closeOnError();
             return;
         }
+
+        // Determine if you're creating a two-pane or single-pane display
+        if(findViewById(R.id.step_detail_container) != null) {
+            // This LinearLayout will only initially exist in the two-pane tablet case
+            mTwoPane = true;
+
+            // Only create new fragments when there is no previously saved state
+            if(savedInstanceState == null) {
+
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
+            }
+        } else {
+            mTwoPane = false;
+        }
+
         Bundle bundle = new Bundle();
         if (recipes != null) {
             bundle.putParcelable("Recipes", recipes);
