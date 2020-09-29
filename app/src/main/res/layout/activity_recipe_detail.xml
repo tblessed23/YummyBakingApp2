@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/recipe_detail_fragment"
+    tools:context=".RecipeDetailActivity"
+    tools:layout="@layout/fragment_recipe_detail"
     android:orientation="vertical">
 
 <!--    <FrameLayout android:id="@+id/step_detail_container"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->
-<!--        android:scaleType="centerInside"/>-->
+    <!--        android:scaleType="centerInside"/>-->
 
 </LinearLayout>
 

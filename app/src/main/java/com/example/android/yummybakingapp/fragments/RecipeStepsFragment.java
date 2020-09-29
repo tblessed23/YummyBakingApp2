@@ -28,6 +28,7 @@ import com.example.android.yummybakingapp.adapters.RecipeStepsAdapter;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 //import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ OnStepsClickListener mStepsListener;
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
-//Set the Text of the Movie Object Variables
+        //Set the Text of the Movie Object Variables
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
         ingredientsTextView.setText(TextUtils.join("", ingredientsList));
 
@@ -137,7 +138,7 @@ OnStepsClickListener mStepsListener;
 //            String line = "- " + quantity + " " + measure + " " + ingredientName;
 //            stringBuilder.append( line + "\n");
 //       }
-       // RecipeWidgetService.startActionShowRecipes(getActivity());
+        RecipeWidgetService.startActionShowRecipes(getActivity());
 
         return rootView;
     }

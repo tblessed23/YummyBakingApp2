@@ -11,14 +11,11 @@ import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-import com.example.android.yummybakingapp.network.Constants;
 
-import java.util.List;
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
 
-private List<Recipes> mValues;
-private List<Steps> mDataset;
+
 
 private Recipes recipes;
 private Steps steps;
@@ -54,7 +51,8 @@ int position;
         }
 
         // Determine if you're creating a two-pane or single-pane display
-        if(findViewById(R.id.root) != null) {
+
+       if(findViewById(R.id.recipe_detail_fragment) != null) {
             // This LinearLayout will only initially exist in the two-pane tablet case
             mTwoPane = true;
 
@@ -64,22 +62,11 @@ int position;
 
             }
 
-            // Only create new fragments when there is no previously saved state
-            if(savedInstanceState == null) {
-
-                RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
-                detailFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.root, detailFragment).commit();
-
-
-//                getSupportFragmentManager().beginTransaction()
-//                        .add(R.id.step_detail_container, new RecipeDetailFragment()).commit();
-            }
         } else {
             mTwoPane = false;
-        }
 
+
+        }
 
         //Pass data to the RecipeStepsFragment to Show Recipe Steps, Single-Pane
         Bundle bundle = new Bundle();
@@ -88,9 +75,10 @@ int position;
 
         }
         RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
-       detailFragment.setArguments(bundle);
-       getSupportFragmentManager().beginTransaction()
+        detailFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.recipe_steps_fragment, detailFragment).commit();
+
     }
 
 
@@ -120,7 +108,7 @@ int position;
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.root, stepinstructionFragment)
+                    .replace(R.id.recipe_detail_fragment, stepinstructionFragment)
                     .commit();
 
         } else {
