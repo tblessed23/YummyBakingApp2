@@ -3,6 +3,7 @@ package com.example.android.yummybakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +31,9 @@ import java.util.List;
  * Through it, you will receive broadcasts when the App Widget is updated, enabled, disabled and deleted.
  */
 public class RecipeWidgetProvider extends AppWidgetProvider {
-
+    private static String ingredientList;
+    private static String recipeName;
+    private static List<Ingredients> ingredient;
 
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
@@ -48,7 +51,9 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 //        Type type = new TypeToken<List<Ingredients>>() {}.getType();
 //        List<Ingredients> arrayList = gson.fromJson(json, type);
 //        assert arrayList != null;
-//        views.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", arrayList));
+//
+//
+//        views.setTextViewText(R.id.widget_baking_ingredientlist, (CharSequence) arrayList);
 
 
 //        SharedPreferences.Editor editor = pref.edit();
@@ -102,23 +107,43 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     private static RemoteViews getIngredientsGridRemoteView(Context context){
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
 
-        // Set the IngredientWidgetService intent to act as the adapter for the GridView
+        // Set the IngredientWidgetService intent to act as the adapter for the view
         Intent intent = new Intent(context, IngredientWidgetService.class);
         views.setRemoteAdapter(R.id.widget_layout, intent);
 
-
-
-        // Set the PlantDetailActivity intent to launch when clicked
+        // Set the RercipeDeListActivity intent to launch when clicked
         Intent appIntent = new Intent(context, RecipeListActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_layout, appPendingIntent);
 
-        // Handle empty gardens
-        views.setEmptyView(R.id.widget_layout,R.id.widget_default_text);
+        // Handle no data
+        views.setEmptyView(R.id.widget_layout,R.id.remotewidget_default_text);
 
         return views;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, RecipeWidgetProvider.class));
 
-}
+        final String action = intent.getAction();
+
+        SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString("recipe_list", "");
+        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+        List<Ingredients> arrayList = gson.fromJson(json, type);
+       assert arrayList != null;
+
+
+        assert action != null;
+        if (action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
+            ingredientList = intent.getStringExtra(String.valueOf(arrayList));
+            recipeName = pref.getString(String.valueOf(R.string.preference_recipe_name_key), "");
+            onUpdate(context, appWidgetManager, appWidgetIds);
+            super.onReceive(context, intent);
+        }
+    }}
 

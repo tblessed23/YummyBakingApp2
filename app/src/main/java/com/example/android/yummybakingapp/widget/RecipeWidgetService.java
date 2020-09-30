@@ -5,27 +5,15 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.JobIntentService;
-
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.model.Ingredients;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.List;
 
 
 public class RecipeWidgetService extends IntentService {
 
-    private Context mContext;
-    private static List<Ingredients> ingredientsList;
 
     public static final String ACTION_SHOW_RECIPES = "com.example.android.yummybakingapp.action.show_recipes";
 
