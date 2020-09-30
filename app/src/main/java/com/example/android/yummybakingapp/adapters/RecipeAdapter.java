@@ -2,6 +2,7 @@ package com.example.android.yummybakingapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
 
-
+    SharedPreferences pref;
     private final Context mContext;
     private List<Recipes> mValues;
 
@@ -91,10 +92,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Set-Up Shared Preferences
+                pref = mContext.getSharedPreferences("MyPref", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+
+                //Store Data: Shared Preferences
+                editor.putString("recipe_name", recipe.getmName()); // Storing boolean - true/false
+                editor.putInt("recipe_id", recipe.getmId()); // Storing string
+                editor.commit(); // commit changes
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
                 intent.putExtra("Recipes", recipe);
                 mContext.startActivity(intent);
+
+
 
             }
         });

@@ -119,21 +119,19 @@ int position;
         //*****Handle Communication Between Fragments*****//
 
         //Set-Up Shared Preferences
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
+//        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+//        SharedPreferences.Editor editor = pref.edit();
 
 //        gson = new Gson();
 //        String json = gson.toJson(ingredientsList);
 //        editor.putString("recipe_list", json);
 
+//        //Store Data: Shared Preferences
+//        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
+//        editor.putInt("recipe_id", recipes.getmId()); // Storing string
+//        editor.commit(); // commit changes
 
-
-        //Store Data: Shared Preferences
-        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
-        editor.putInt("recipe_id", recipes.getmId()); // Storing string
-        editor.commit(); // commit changes
-
-        RecipeWidgetService.startActionShowRecipes(this);
+      //  RecipeWidgetService.startActionShowRecipes(this);
 
 
         // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list
