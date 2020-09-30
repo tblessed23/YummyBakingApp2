@@ -22,42 +22,8 @@
     <string name="add_widget">Add widget</string>
 
     <!--Shared Preferences-->
-    <string name="settings_menu_item">Settings</string>
-    <string name="settings_title">Quick Recipe Settings</string>
-
-    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
-    <string name="settings_order_by_label">Choose Recipe to Display in Widget</string>
-    <string name="settings_order_by_key" translatable="false">order_by</string>
-    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_nutella_pie_value</string>
-
-    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_nutella_pie_label">Nutella Pie</string>
-    <string name="settings_order_by_nutella_pie_value" translatable="false">nutellapie</string>
-
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_brownies_label">Brownies</string>
-    <string name="settings_order_by_brownies_value" translatable="false">brownies</string>
-
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_yellow_cake_label">Yellow Cake</string>
-    <string name="settings_order_by_yellow_cake_value" translatable="false">yellowcake</string>
-
-    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
-    <string name="settings_order_by_cheesecake_label">Cheesecake</string>
-    <string name="settings_order_by_cheesecake_value" translatable="false">cheesecake</string>
-
-    <string-array name="settings_order_by_labels">
-        <item>@string/settings_order_by_nutella_pie_label</item>
-        <item>@string/settings_order_by_brownies_label</item>
-        <item>@string/settings_order_by_yellow_cake_label</item>
-        <item>@string/settings_order_by_cheesecake_label</item>
-    </string-array>
-
-    <string-array name="settings_order_by_values">
-        <item>@string/settings_order_by_nutella_pie_value</item>
-        <item>@string/settings_order_by_brownies_value</item>
-        <item>@string/settings_order_by_yellow_cake_value</item>
-        <item>@string/settings_order_by_cheesecake_value</item>
-    </string-array>
-
+   <string name="preference_name">ingredient_preference</string>
+    <string name="preference_recipe_name_key">recipe_name</string>
+    <string name="preference_recipe_id_key">recipe_id</string>
+    <string name="preference_recipe_list_key">recipe_list</string>
 </resources>

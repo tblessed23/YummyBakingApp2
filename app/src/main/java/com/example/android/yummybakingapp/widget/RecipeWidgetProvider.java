@@ -5,10 +5,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.RemoteViews;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeDetailActivity;
+import com.example.android.yummybakingapp.RecipeListActivity;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
 
 /**
@@ -24,35 +26,14 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
         RemoteViews views = getIngredientsGridRemoteView(context);
 
+        //Get the id and name of the last chosen recipe from the preferences
+        SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+        ;
+        String recipeName = sharedPreferences.getString(String.valueOf(R.string.preference_recipe_name_key), "");
+        views.setTextViewText(R.id.widget_baking_title, recipeName);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
-
-       // RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
-
-//        views.setTextViewText(R.id.widget_baking_title, recipeName);
-//        views.setTextViewText(R.id.widget_baking_ingredientlist, ingredientsList);
-
-//        if (ingredientsList.isEmpty() && recipeName.isEmpty()) {
-//            views.setViewVisibility(R.id.widget_default_text, View.VISIBLE);
-//        }
-//        else {
-//            views.setViewVisibility(R.id.widget_default_text, View.GONE);
-//        }
-////        StringBuilder stringBuilder = new StringBuilder();
-////        for(Ingredients ingredient : ingredientList){
-////            String quantity = String.valueOf(ingredient.getmQuantity());
-////            String measure = ingredient.getmMeasure();
-////            String ingredientName = ingredient.getmQuantity();
-////            String line = "- " + quantity + " " + measure + " " + ingredientName;
-////            stringBuilder.append( line + "\n");
-////        }
-//
-////        views.setTextViewText(R.id.widget_baking_title, "Cheesecake");
-////        views.setTextViewText(R.id.widget_baking_ingredientlist, stringBuilder.toString());
-//
-//
-
 
     }
 
@@ -88,7 +69,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.widget_layout, intent);
 
         // Set the PlantDetailActivity intent to launch when clicked
-        Intent appIntent = new Intent(context, RecipeStepsActivity.class);
+        Intent appIntent = new Intent(context, RecipeListActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_layout, appPendingIntent);
 

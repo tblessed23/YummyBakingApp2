@@ -96,7 +96,7 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
-        RecipeWidgetService.startActionShowRecipes(this);
+
     }
 
 

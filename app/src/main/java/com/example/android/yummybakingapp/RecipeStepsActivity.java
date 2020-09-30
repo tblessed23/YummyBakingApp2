@@ -25,8 +25,6 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
 private Recipes recipes;
 private Steps steps;
-SharedPreferences pref;
-Gson gson;
 private boolean mTwoPane;
 int position;
 
@@ -90,24 +88,6 @@ int position;
 
     }
 
-    @Override
-    // This method initialize the contents of the Activity's options menu.
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the Options Menu we specified in XML
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivity(settingsIntent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
@@ -117,21 +97,6 @@ int position;
     @Override
     public void onStepSelected(int position) {
         //*****Handle Communication Between Fragments*****//
-
-        //Set-Up Shared Preferences
-//        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-//        SharedPreferences.Editor editor = pref.edit();
-
-//        gson = new Gson();
-//        String json = gson.toJson(ingredientsList);
-//        editor.putString("recipe_list", json);
-
-//        //Store Data: Shared Preferences
-//        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
-//        editor.putInt("recipe_id", recipes.getmId()); // Storing string
-//        editor.commit(); // commit changes
-
-      //  RecipeWidgetService.startActionShowRecipes(this);
 
 
         // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list

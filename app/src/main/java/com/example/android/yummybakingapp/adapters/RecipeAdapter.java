@@ -18,6 +18,7 @@ import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -93,13 +94,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             @Override
             public void onClick(View v) {
                 //Set-Up Shared Preferences
-                pref = mContext.getSharedPreferences("MyPref", 0); // 0 - for private mode
+                pref = mContext.getSharedPreferences(String.valueOf(R.string.preference_name), 0); // 0 - for private mode
                 SharedPreferences.Editor editor = pref.edit();
 
                 //Store Data: Shared Preferences
-                editor.putString("recipe_name", recipe.getmName()); // Storing boolean - true/false
-                editor.putInt("recipe_id", recipe.getmId()); // Storing string
-                editor.commit(); // commit changes
+                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
+                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
+                editor.apply(); // commit changes
+
+                RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
                 intent.putExtra("Recipes", recipe);

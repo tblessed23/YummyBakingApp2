@@ -45,14 +45,15 @@ public class IngredientWidgetService extends RemoteViewsService {
     @Override
     public void onDataSetChanged() {
         //Get the id of the most recently chosen recipe id from shared preferences
-        SharedPreferences pref= mContext.getSharedPreferences("MyPref",0);
-        int recipeId = pref.getInt("recipe_id", 0);
+        SharedPreferences pref= mContext.getSharedPreferences(String.valueOf(R.string.preference_name),0);
+        int recipeId = pref.getInt(String.valueOf(R.string.preference_recipe_id_key), 0);
 
         //If there is a recipe id in preferences, get the recipe ingredients  from preferences
         if(recipeId != 0){
-            String json = pref.getString("recipe_list", "");
+            String json = pref.getString(String.valueOf(R.string.preference_recipe_list_key), "");
             Type type = new TypeToken<List<Ingredients>>() {}.getType();
-            List<Ingredients> arrayList = gson.fromJson(json, type);
+            ingredients = gson.fromJson(json, type);
+           // return gson.fromJson(json, type);
         }
     }
 
@@ -78,19 +79,15 @@ public class IngredientWidgetService extends RemoteViewsService {
 
         ingredient = ingredients.get(position);
 
-        if (ingredients != null) {
+        if (ingredient != null) {
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(String.valueOf(ingredient.getmQuantity()));// now original string is changed
+                     sb.append(ingredient.getmMeasure());// now original string is changed
+                     sb.append(ingredient.getmQuantity());// now original string is changed
 
 
-
-                   StringBuilder stringBuilder = new StringBuilder();
-                   for(Ingredients ingredient : ingredients){
-            String quantity = String.valueOf(ingredient.getmQuantity());
-            String measure = ingredient.getmMeasure();
-            String ingredientName = ingredient.getmQuantity();
-            String line = "- " + quantity + " " + measure + " " + ingredientName;
-            stringBuilder.append( line + "\n");
-        }
-            remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, stringBuilder.toString());
+            remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, sb);
 
         } else {
             remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, "Please add a recipe to widget");
