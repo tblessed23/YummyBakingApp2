@@ -1,6 +1,7 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
@@ -24,6 +25,7 @@ import com.example.android.yummybakingapp.adapters.RecipeStepsAdapter;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -47,7 +49,7 @@ private Recipes recipes;
 private Steps stepsAgain;
 
 TextView ingredientsTextView;
-
+TextView testtwoingredientsTextView;
 
 List<Ingredients> ingredientsList;
 
@@ -106,6 +108,8 @@ OnStepsClickListener mStepsListener;
         assert recipes != null;
         ingredientsList = recipes.getmIngredients();
 
+       // SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -114,10 +118,19 @@ OnStepsClickListener mStepsListener;
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
 
-        //Set the Text of the Movie Object Variables
+        //Set the Text of the Recipe Object Variables
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
         ingredientsTextView.setText(TextUtils.join("", ingredientsList));
+        SharedPreferences pref = getContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        Gson gson = new Gson();
+        String json = pref.getString("recipe_list", "");
+        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+        List<Ingredients> arrayList = gson.fromJson(json, type);
 
+        //Set the Text of the Movie Object Variables
+        testtwoingredientsTextView = rootView.findViewById(R.id.ingredientstest_TextView);
+        assert arrayList != null;
+        testtwoingredientsTextView.setText(TextUtils.join("", arrayList));
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);

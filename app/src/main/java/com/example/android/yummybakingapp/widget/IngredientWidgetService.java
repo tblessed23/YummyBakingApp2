@@ -39,7 +39,6 @@ public class IngredientWidgetService extends RemoteViewsService {
 
     @Override
     public void onCreate() {
-
     }
 
     @Override
@@ -76,20 +75,26 @@ public class IngredientWidgetService extends RemoteViewsService {
 //        String json = pref.getString("recipe_list", "");
 //       Type type = new TypeToken<List<Ingredients>>() {}.getType();
 //        List<Ingredients> arrayList = gson.fromJson(json, type);
-
-        ingredient = ingredients.get(position);
-
-        if (ingredient != null) {
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(String.valueOf(ingredient.getmQuantity()));// now original string is changed
-                     sb.append(ingredient.getmMeasure());// now original string is changed
-                     sb.append(ingredient.getmQuantity());// now original string is changed
+        SharedPreferences pref = mContext.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = pref.getString("recipe_list", "");
+        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+        ingredients = gson.fromJson(json, type);
 
 
-            remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, sb);
+//        ingredient = ingredients.get(position);
+//
+//        if (ingredient != null) {
+//
+//                    StringBuilder sb = new StringBuilder();
+//                    sb.append(String.valueOf(ingredient.getmQuantity()));// now original string is changed
+//                     sb.append(ingredient.getmMeasure());// now original string is changed
+//                     sb.append(ingredient.getmQuantity());// now original string is changed
 
-        }
+
+            remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", ingredients));
+
+        //}
         return remoteViews;
     }
 

@@ -6,12 +6,23 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.text.TextUtils;
 import android.widget.RemoteViews;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeDetailActivity;
 import com.example.android.yummybakingapp.RecipeListActivity;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
+import com.example.android.yummybakingapp.model.Ingredients;
+import com.example.android.yummybakingapp.model.Recipes;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Implementation of App Widget functionality. Defines the basic methods that allow you to programmatically
@@ -27,10 +38,33 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         RemoteViews views = getIngredientsGridRemoteView(context);
 
         //Get the id and name of the last chosen recipe from the preferences
-        SharedPreferences sharedPreferences = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
-        ;
-        String recipeName = sharedPreferences.getString(String.valueOf(R.string.preference_recipe_name_key), "");
+        SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+
+        String recipeName = pref.getString(String.valueOf(R.string.preference_recipe_name_key), "");
         views.setTextViewText(R.id.widget_baking_title, recipeName);
+
+//        Gson gson = new Gson();
+//        String json = pref.getString("recipe_list", "");
+//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+//        List<Ingredients> arrayList = gson.fromJson(json, type);
+//        assert arrayList != null;
+//        views.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", arrayList));
+
+
+//        SharedPreferences.Editor editor = pref.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(ingredientsList);
+//        editor.putString("recipe_list", json);
+//        editor.apply(); // commit changes
+//
+//
+//        String jsontwo = pref.getString("recipe_list", "");
+//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+//        List<Ingredients> arrayList = gson.fromJson(jsontwo, type);
+
+
+//        assert arrayList != null;
+//        views.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", arrayList));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -42,10 +76,12 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     // also called when the user adds the App Widget, so it should perform the essential setup, such as
     // define event handlers for Views and start a temporary Service, if necessary. ****
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Start the intent service update widget action, the service takes care of updating the widgets UI
         RecipeWidgetService.startActionShowRecipes(context);
+
     }
 
     /**
@@ -58,6 +94,8 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+
+
         }
     }
 
@@ -67,6 +105,8 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         // Set the IngredientWidgetService intent to act as the adapter for the GridView
         Intent intent = new Intent(context, IngredientWidgetService.class);
         views.setRemoteAdapter(R.id.widget_layout, intent);
+
+
 
         // Set the PlantDetailActivity intent to launch when clicked
         Intent appIntent = new Intent(context, RecipeListActivity.class);
