@@ -2,6 +2,7 @@ package com.example.android.yummybakingapp.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -29,8 +30,11 @@ import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
-//import com.example.android.yummybakingapp.widget.RecipeWidgetService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +56,13 @@ private Recipes recipes;
 private Steps stepsAgain;
 
 TextView ingredientsTextView;
+TextView testingredientsTextView;
+TextView testtwoingredientsTextView;
+    SharedPreferences pref;
+    Gson gson;
 List<Ingredients> ingredientsList;
+
+    private final String INGREDIENT_LIST_KEY = "ingredient_key";
 
 
 //Define a new interface that triggers a callback to the host activity
@@ -109,6 +119,22 @@ OnStepsClickListener mStepsListener;
         assert recipes != null;
         ingredientsList = recipes.getmIngredients();
 
+        //Set-Up Shared Preferences
+         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+
+        gson = new Gson();
+        String json = gson.toJson(ingredientsList);
+        editor.putString("recipe_list", json);
+
+
+        //Store Data: Shared Preferences
+        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
+        editor.putInt("recipe_id", recipes.getmId()); // Storing string
+        editor.commit(); // commit changes
+
+
+
     }
 
     @Override
@@ -120,6 +146,24 @@ OnStepsClickListener mStepsListener;
         //Set the Text of the Movie Object Variables
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
         ingredientsTextView.setText(TextUtils.join("", ingredientsList));
+
+//        //Set the Text of the Movie Object Variables
+//        testingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_name);
+//        testingredientsTextView.setText(pref.getString("recipe_name", null));
+//
+//        //Set the Text of the Movie Object Variables
+//        testingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_id);
+//        testingredientsTextView.setText(String.valueOf(pref.getInt("recipe_id", -1)));
+//
+//
+//        String json = pref.getString("recipe_list", "");
+//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+//        List<Ingredients> arrayList = gson.fromJson(json, type);
+//
+//        //Set the Text of the Movie Object Variables
+//        testtwoingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_list);
+//        assert arrayList != null;
+//        testtwoingredientsTextView.setText(TextUtils.join("", arrayList));
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -138,7 +182,7 @@ OnStepsClickListener mStepsListener;
 //            String line = "- " + quantity + " " + measure + " " + ingredientName;
 //            stringBuilder.append( line + "\n");
 //       }
-        RecipeWidgetService.startActionShowRecipes(getActivity());
+        //RecipeWidgetService.startActionShowRecipes(getActivity());
 
         return rootView;
     }

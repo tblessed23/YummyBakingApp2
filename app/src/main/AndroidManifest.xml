@@ -10,10 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+        android:name=".SettingsActivity"
+        android:label="@string/settings_title"
+        android:screenOrientation="portrait">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".RecipeListActivity"/>
+    </activity>
+        <activity
             android:name=".RecipeDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:parentActivityName=".RecipeDetailActivity" />
-
         <activity
             android:name=".RecipeStepsActivity"
             android:parentActivityName=".RecipeListActivity" />
@@ -33,12 +40,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/recipe_widget_provider_info" />
         </receiver>
+        <service android:name=".widget.RecipeWidgetService"/>
         <service
-            android:name=".widget.RecipeWidgetService"
+            android:name=".widget.IngredientWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

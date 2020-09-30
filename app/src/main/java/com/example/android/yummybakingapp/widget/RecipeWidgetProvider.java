@@ -3,31 +3,13 @@ package com.example.android.yummybakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.provider.SyncStateContract;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.RecipeListActivity;
-import com.example.android.yummybakingapp.model.Ingredients;
-import com.example.android.yummybakingapp.model.Recipes;
-import com.example.android.yummybakingapp.network.Constants;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.example.android.yummybakingapp.RecipeDetailActivity;
+import com.example.android.yummybakingapp.RecipeStepsActivity;
 
 /**
  * Implementation of App Widget functionality. Defines the basic methods that allow you to programmatically
@@ -36,17 +18,20 @@ import java.util.List;
  */
 public class RecipeWidgetProvider extends AppWidgetProvider {
 
-    private static String ingredientList;
-    private static String recipeName;
-
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                String ingredientsList, String recipeName, int appWidgetId) {
 
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
-        views.setTextViewText(R.id.widget_baking_title, recipeName);
-        views.setTextViewText(R.id.widget_baking_ingredientlist, ingredientsList);
+        RemoteViews views = getIngredientsGridRemoteView(context);
+
+        // Instruct the widget manager to update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+
+
+       // RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
+
+//        views.setTextViewText(R.id.widget_baking_title, recipeName);
+//        views.setTextViewText(R.id.widget_baking_ingredientlist, ingredientsList);
 
 //        if (ingredientsList.isEmpty() && recipeName.isEmpty()) {
 //            views.setViewVisibility(R.id.widget_default_text, View.VISIBLE);
@@ -67,8 +52,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 ////        views.setTextViewText(R.id.widget_baking_ingredientlist, stringBuilder.toString());
 //
 //
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+
 
     }
 
@@ -88,15 +72,32 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
      *
      * @param context          The calling context
      * @param appWidgetManager The widget manager
-     * @param ingredientsList           The image resource for single plant mode
-     * @param recipeName         The database ID for that plant
      * @param appWidgetIds     Array of widget Ids to be updated
      */
-    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager,
-                                           String ingredientsList, String recipeName, int[] appWidgetIds) {
+    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, ingredientsList, recipeName, appWidgetId);
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
+
+    private static RemoteViews getIngredientsGridRemoteView(Context context){
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget_provider);
+
+        // Set the IngredientWidgetService intent to act as the adapter for the GridView
+        Intent intent = new Intent(context, IngredientWidgetService.class);
+        views.setRemoteAdapter(R.id.widget_layout, intent);
+
+        // Set the PlantDetailActivity intent to launch when clicked
+        Intent appIntent = new Intent(context, RecipeStepsActivity.class);
+        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.widget_layout, appPendingIntent);
+
+        // Handle empty gardens
+        views.setEmptyView(R.id.widget_layout,R.id.widget_default_text);
+
+        return views;
+    }
+
+
 }
 

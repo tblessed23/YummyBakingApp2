@@ -7,7 +7,10 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,6 +126,8 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
         /* Then, show the error */
         mEmptyStateTextView.setVisibility(View.VISIBLE);
     }
+
+
 
     //***************************************************Begin Loader***************************************************************//
     @Override

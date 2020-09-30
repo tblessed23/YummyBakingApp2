@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
@@ -79,9 +83,28 @@ int position;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.recipe_steps_fragment, detailFragment).commit();
 
+        RecipeWidgetService.startActionShowRecipes(getApplicationContext());
+
     }
 
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
