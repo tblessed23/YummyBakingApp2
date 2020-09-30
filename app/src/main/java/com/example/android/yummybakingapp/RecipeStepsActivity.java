@@ -14,7 +14,9 @@ import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.example.android.yummybakingapp.widget.RecipeWidgetProvider;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
+import com.google.gson.Gson;
 
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
@@ -23,7 +25,8 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
 private Recipes recipes;
 private Steps steps;
-
+SharedPreferences pref;
+Gson gson;
 private boolean mTwoPane;
 int position;
 
@@ -114,6 +117,24 @@ int position;
     @Override
     public void onStepSelected(int position) {
         //*****Handle Communication Between Fragments*****//
+
+        //Set-Up Shared Preferences
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+
+//        gson = new Gson();
+//        String json = gson.toJson(ingredientsList);
+//        editor.putString("recipe_list", json);
+
+
+
+        //Store Data: Shared Preferences
+        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
+        editor.putInt("recipe_id", recipes.getmId()); // Storing string
+        editor.commit(); // commit changes
+
+        RecipeWidgetService.startActionShowRecipes(this);
+
 
         // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list
         if (mTwoPane) {

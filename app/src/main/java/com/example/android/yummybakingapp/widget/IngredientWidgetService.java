@@ -51,9 +51,8 @@ public class IngredientWidgetService extends RemoteViewsService {
         //If there is a recipe id in preferences, get the recipe ingredients  from preferences
         if(recipeId != 0){
             String json = pref.getString("recipe_list", "");
-//            Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//            List<Ingredients> arrayList = gson.fromJson(json, type);
-           // ingredients = repo.getRecipeForWidget(lastChosenRecipeId).getIngredientList();
+            Type type = new TypeToken<List<Ingredients>>() {}.getType();
+            List<Ingredients> arrayList = gson.fromJson(json, type);
         }
     }
 

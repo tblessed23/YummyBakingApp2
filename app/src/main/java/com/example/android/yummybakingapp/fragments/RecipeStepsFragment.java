@@ -58,8 +58,7 @@ private Steps stepsAgain;
 TextView ingredientsTextView;
 TextView testingredientsTextView;
 TextView testtwoingredientsTextView;
-    SharedPreferences pref;
-    Gson gson;
+
 List<Ingredients> ingredientsList;
 
     private final String INGREDIENT_LIST_KEY = "ingredient_key";
@@ -118,22 +117,6 @@ OnStepsClickListener mStepsListener;
 
         assert recipes != null;
         ingredientsList = recipes.getmIngredients();
-
-        //Set-Up Shared Preferences
-         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
-
-        gson = new Gson();
-        String json = gson.toJson(ingredientsList);
-        editor.putString("recipe_list", json);
-
-
-        //Store Data: Shared Preferences
-        editor.putString("recipe_name", recipes.getmName()); // Storing boolean - true/false
-        editor.putInt("recipe_id", recipes.getmId()); // Storing string
-        editor.commit(); // commit changes
-
-
 
     }
 
