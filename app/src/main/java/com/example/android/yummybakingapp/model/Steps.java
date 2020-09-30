@@ -8,8 +8,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Steps implements Parcelable {
 
-
-
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Steps createFromParcel(Parcel in) {
             return new Steps(in);

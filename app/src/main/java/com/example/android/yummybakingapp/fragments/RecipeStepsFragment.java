@@ -1,41 +1,32 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.cardview.widget.CardView;
+
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Parcelable;
+
 import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
+
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.adapters.RecipeAdapter;
 import com.example.android.yummybakingapp.adapters.RecipeStepsAdapter;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-import com.example.android.yummybakingapp.widget.RecipeWidgetService;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,12 +47,9 @@ private Recipes recipes;
 private Steps stepsAgain;
 
 TextView ingredientsTextView;
-TextView testingredientsTextView;
-TextView testtwoingredientsTextView;
+
 
 List<Ingredients> ingredientsList;
-
-    private final String INGREDIENT_LIST_KEY = "ingredient_key";
 
 
 //Define a new interface that triggers a callback to the host activity
@@ -112,7 +100,7 @@ OnStepsClickListener mStepsListener;
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            recipes = getArguments().getParcelable("Recipes");
+            recipes = getArguments().getParcelable(getResources().getString(R.string.intent_key_recipes));
         }
 
         assert recipes != null;
@@ -130,23 +118,6 @@ OnStepsClickListener mStepsListener;
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
         ingredientsTextView.setText(TextUtils.join("", ingredientsList));
 
-//        //Set the Text of the Movie Object Variables
-//        testingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_name);
-//        testingredientsTextView.setText(pref.getString("recipe_name", null));
-//
-//        //Set the Text of the Movie Object Variables
-//        testingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_id);
-//        testingredientsTextView.setText(String.valueOf(pref.getInt("recipe_id", -1)));
-//
-//
-//        String json = pref.getString("recipe_list", "");
-//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        List<Ingredients> arrayList = gson.fromJson(json, type);
-//
-//        //Set the Text of the Movie Object Variables
-//        testtwoingredientsTextView = rootView.findViewById(R.id.ingredients_preftv_list);
-//        assert arrayList != null;
-//        testtwoingredientsTextView.setText(TextUtils.join("", arrayList));
 
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
@@ -156,16 +127,6 @@ OnStepsClickListener mStepsListener;
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
 
-
-//                StringBuilder stringBuilder = new StringBuilder();
-//        for(Ingredients ingredient : ingredientsList){
-//            String quantity = String.valueOf(ingredient.getmQuantity());
-//            String measure = ingredient.getmMeasure();
-//            String ingredientName = ingredient.getmQuantity();
-//            String line = "- " + quantity + " " + measure + " " + ingredientName;
-//            stringBuilder.append( line + "\n");
-//       }
-        //RecipeWidgetService.startActionShowRecipes(getActivity());
 
         return rootView;
     }

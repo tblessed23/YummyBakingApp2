@@ -26,29 +26,6 @@
             android:layout_margin="@dimen/text_margin"
             android:textAppearance="?attr/textAppearanceListItem" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/ingredients_preftv_name"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/text_margin"-->
-<!--            android:text="This will hold the recipe NAME from preferences"-->
-<!--            android:textAppearance="?attr/textAppearanceListItem" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/ingredients_preftv_id"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/text_margin"-->
-<!--            android:text="This will hold the recipe LIST from preferences"-->
-<!--            android:textAppearance="?attr/textAppearanceListItem" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/ingredients_preftv_list"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/text_margin"-->
-<!--            android:text="This will hold the recipe LIST from preferences"-->
-<!--            android:textAppearance="?attr/textAppearanceListItem" />-->
 
         <!-- A RecyclerView with some commonly used attributes -->
         <androidx.recyclerview.widget.RecyclerView
@@ -56,9 +33,6 @@
             android:layout_width="match_parent"
             android:id="@+id/my_recycler_view" />
     </LinearLayout>
-
-
-
 
 </LinearLayout>
 </ScrollView>

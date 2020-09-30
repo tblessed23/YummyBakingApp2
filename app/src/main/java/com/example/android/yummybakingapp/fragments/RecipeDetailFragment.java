@@ -1,7 +1,6 @@
 package com.example.android.yummybakingapp.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,11 +23,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class RecipeDetailFragment extends Fragment {
@@ -77,9 +72,9 @@ public class RecipeDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            steps= getArguments().getParcelable("Steps");
-            recipes = getArguments().getParcelable("Recipes");
-            position = getArguments().getInt("StepsPosition");
+            steps= getArguments().getParcelable(getResources().getString(R.string.intent_key));
+            recipes = getArguments().getParcelable(getResources().getString(R.string.intent_key_recipes));
+            position = getArguments().getInt(getResources().getString(R.string.intent_key_steps_position));
 
         }
 
@@ -126,7 +121,7 @@ public class RecipeDetailFragment extends Fragment {
 
         if(recipes != null){
 
-            // Set a click listener on the image view
+            // Set a click listener on the view
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -162,10 +157,6 @@ public class RecipeDetailFragment extends Fragment {
 
                 stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
                 initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
-
-
-
-
 
             }
         });

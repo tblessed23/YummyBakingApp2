@@ -42,24 +42,16 @@ import retrofit2.Response;
 public class RecipeListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Recipes>> {
 
     /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-    //private boolean mTwoPane;
-    /**
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
     private RecyclerView recyclerView;
-    /** Adapter for the list of earthquakes */
+
+    /** Adapter for the list of recipes */
     private RecipeAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Recipes> mRecipes;
     private static final int RECIPES_LOADER_ID = 1;
-
-    private String recipes;
-    private List<Recipes> mValues;
-    private String recipeJson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,16 +134,16 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
         View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
 
-        // Set empty state text to display "No movies found."
+        // Set empty state text to display "No recipes found."
         if (recipes == null) {
             showErrorMessage();
             mEmptyStateTextView.setText(R.string.no_movies);
         }
 
-        // Clear the adapter of previous movie data
+        // Clear the adapter of previous recipe data
         mAdapter.clear(new ArrayList<Recipes>());
 
-        // If there is a valid list of {@link Movies}s, then add them to the adapter's
+        // If there is a valid list of {@link Recipes}s, then add them to the adapter's
         // data set. This will trigger the RecyclerView to update.
         if (recipes != null && !recipes.isEmpty()) {
             mAdapter.setRecipeData(recipes);
@@ -160,7 +152,7 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(@NonNull androidx.loader.content.Loader<List<Recipes>> loader) {
-        // Clear the adapter of previous news data
+        // Clear the adapter of previous recipe data
         mAdapter.clear(new ArrayList<Recipes>());
     }
 

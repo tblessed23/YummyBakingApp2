@@ -96,7 +96,6 @@ public class Ingredients implements Parcelable {
     public String toString() {
         return  "- " + quantity + measure + " "
                  + ingredient + "\n";
-
     }
 }
 

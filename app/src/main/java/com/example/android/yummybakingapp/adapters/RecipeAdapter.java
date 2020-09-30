@@ -3,8 +3,7 @@ package com.example.android.yummybakingapp.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Parcelable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
-import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
+import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
-import com.example.android.yummybakingapp.model.Steps;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 import com.google.gson.Gson;
 
@@ -30,15 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     SharedPreferences pref;
     private final Context mContext;
     private List<Recipes> mValues;
-
-
-    /**
-     * Constructor for MovieAdapter that accepts a number of items to display
-     and the specification
-     * for the ListItemClickListener.
-     *
-     * @param recipes Items to display in list
-     */
+    private List<Ingredients> mIngredients;
 
 
     public void setRecipeData(List<Recipes> recipes) {
@@ -52,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     /**
-     * Constructor for MovieAdapter that accepts a number of items to display
+     * Constructor for RecipeAdapter that accepts a number of items to display
      and the specification
      * for the ListItemClickListener.
      *
@@ -98,6 +88,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 SharedPreferences.Editor editor = pref.edit();
 
                 //Store Data: Shared Preferences
+                Gson gson = new Gson();
+
+                String json = gson.toJson(recipe.getmIngredients());
+
+                editor.putString(String.valueOf(R.string.preference_recipe_list_key), json);
                 editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
                 editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
                 editor.apply(); // commit changes
@@ -105,7 +100,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-                intent.putExtra("Recipes", recipe);
+                intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipe);
                 mContext.startActivity(intent);
 
 
@@ -134,7 +129,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
+    static class RecipeViewHolder extends RecyclerView.ViewHolder {
         final TextView mContentView;
         final TextView mServingsView;
         final TextView mStepsView;
@@ -164,7 +159,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     layout. See
      *
      *                  for more details.
-     * @return A new MovieViewHolder that holds the View for each list item
+     * @return A new RecipeViewHolder that holds the View for each list item
      */
 
 

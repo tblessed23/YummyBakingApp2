@@ -9,10 +9,7 @@ import android.content.Intent;
 import androidx.annotation.Nullable;
 
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.model.Ingredients;
-import com.example.android.yummybakingapp.model.Recipes;
 
-import java.util.List;
 
 public class RecipeWidgetService extends IntentService {
 
@@ -24,20 +21,11 @@ public class RecipeWidgetService extends IntentService {
     }
 
 
-    /**
-     * Starts this service to perform WaterPlant action with the given parameters. If
-     * the service is already performing a task this action will be queued.
-     *
-     * @see IntentService
-     */
     public static void startActionShowRecipes(Context context) {
         Intent intent = new Intent(context, RecipeWidgetService.class);
         intent.setAction(ACTION_SHOW_RECIPES);
         context.startService(intent);
-
     }
-
-
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
@@ -58,7 +46,6 @@ public class RecipeWidgetService extends IntentService {
 
         //Now update all widgets
         RecipeWidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds);
-
     }
 }
 

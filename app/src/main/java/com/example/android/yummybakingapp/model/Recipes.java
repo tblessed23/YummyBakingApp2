@@ -127,7 +127,6 @@ public class Recipes implements Parcelable {
         dest.writeList(this.ingredients);
         dest.writeList(this.steps);
         dest.writeInt(this.servings);
-
     }
 }
 

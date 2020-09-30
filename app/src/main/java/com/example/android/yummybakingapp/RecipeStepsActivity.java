@@ -4,19 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
 import android.widget.Toast;
 
 import com.example.android.yummybakingapp.fragments.RecipeDetailFragment;
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
-import com.example.android.yummybakingapp.model.Steps;
-import com.example.android.yummybakingapp.widget.RecipeWidgetProvider;
+
+
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
-import com.google.gson.Gson;
+
 
 
 public class RecipeStepsActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepsClickListener  {
@@ -24,9 +23,9 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
 
 private Recipes recipes;
-private Steps steps;
+
 private boolean mTwoPane;
-int position;
+
 
 
     @Override
@@ -63,7 +62,7 @@ int position;
 
             Bundle bundle = new Bundle();
             if (recipes != null) {
-                bundle.putParcelable("Recipes", recipes);
+                bundle.putParcelable(getResources().getString(R.string.intent_key_recipes), recipes);
 
             }
 
@@ -76,7 +75,7 @@ int position;
         //Pass data to the RecipeStepsFragment to Show Recipe Steps, Single-Pane
         Bundle bundle = new Bundle();
         if (recipes != null) {
-            bundle.putParcelable("Recipes", recipes);
+            bundle.putParcelable(getResources().getString(R.string.intent_key_recipes), recipes);
 
         }
         RecipeStepsFragment detailFragment = new  RecipeStepsFragment();
@@ -99,14 +98,14 @@ int position;
         //*****Handle Communication Between Fragments*****//
 
 
-        // Handle the two-pane case and replace existing fragments right when a new image is selected from the master list
+        // Handle the two-pane case and replace existing fragments
         if (mTwoPane) {
            // Create two=pane interaction
 
             Bundle bundle = new Bundle();
-            // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
-            bundle.putParcelable("Recipes", recipes);
-            bundle.putInt("StepsPosition", position);
+            // Put this information in a Bundle and attach it to an Intent that will launch an RecipeDetailFragment
+            bundle.putParcelable(getResources().getString(R.string.intent_key_recipes), recipes);
+            bundle.putInt(getResources().getString(R.string.intent_key_steps_position), position);
 
             RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
             stepinstructionFragment.setArguments(bundle);
@@ -120,16 +119,16 @@ int position;
 
         } else {
 
-        // Put this information in a Bundle and attach it to an Intent that will launch an AndroidMeActivity
+        // Put this information in a Bundle and attach it to an Intent that will launch an RecipeDetailActivity
         Bundle b = new Bundle();
-        b.putParcelable("Recipes", recipes);
+        b.putParcelable(getResources().getString(R.string.intent_key_recipes), recipes);
 
 
         // Attach the Bundle to an intent
         final Intent intent = new Intent(this, RecipeDetailActivity.class);
 
         intent.putExtras(b);
-        intent.putExtra("StepsPosition", position);
+        intent.putExtra(getResources().getString(R.string.intent_key_steps_position), position);
         startActivity(intent);
     }
 }}

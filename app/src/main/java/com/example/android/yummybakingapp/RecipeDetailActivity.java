@@ -35,8 +35,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Using getParcelableExtra(String key) method
         if (intent.hasExtra(getResources().getString(R.string.intent_key_recipes))) {
             recipes = intent.getParcelableExtra(getResources().getString(R.string.intent_key_recipes));
-            steps = intent.getParcelableExtra("Steps");
-            position = intent.getIntExtra("StepsPosition", 0);
+            steps = intent.getParcelableExtra(getResources().getString(R.string.intent_key));
+            position = intent.getIntExtra(getResources().getString(R.string.intent_key_steps_position), 0);
         }
 
 
@@ -47,21 +47,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
         }
         Bundle bundle = new Bundle();
         if (recipes != null) {
-            bundle.putParcelable("Recipes", recipes);
+            bundle.putParcelable(getResources().getString(R.string.intent_key_recipes), recipes);
 
 
         }
         if (steps != null) {
-            bundle.putParcelable("Steps", steps);
+            bundle.putParcelable(getResources().getString(R.string.intent_key), steps);
         }
 
 
-        bundle.putInt("StepsPosition", position);
+        bundle.putInt(getResources().getString(R.string.intent_key_steps_position), position);
         ;
 
         // Only create new fragments when there is no previously saved state
         if(savedInstanceState == null) {
-        // Create a new head BodyPartFragment
+        // Create a new head RecipeDetailFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
         stepinstructionFragment.setArguments(bundle);
 
@@ -69,7 +69,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
-               // .addToBackStack(null)
                 .add(R.id.recipe_detail_fragment, stepinstructionFragment)
                 .commit();
 

@@ -28,10 +28,10 @@
         <TextView android:id="@+id/step_detail_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
+            android:paddingLeft="@dimen/padding_four"
+            android:paddingRight="@dimen/padding_four"
             android:textColor="@color/textColor"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_size"
             tools:ignore="SmallSp"/>
 
 
@@ -47,12 +47,14 @@
             android:id="@+id/previousButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="7dp"
+            android:layout_marginRight="@dimen/general_twenty"
+            android:layout_marginLeft="@dimen/general_seven"
             android:background="#ffeecc"
             style="?attr/materialButtonOutlinedStyle"
             android:text="@string/previous_button"
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            android:layout_marginStart="@dimen/general_seven"
+            android:layout_marginEnd="@dimen/general_twenty" />
 
         <Button
             android:id="@+id/nextButton"
