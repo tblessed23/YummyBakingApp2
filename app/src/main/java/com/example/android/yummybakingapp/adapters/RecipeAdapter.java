@@ -100,7 +100,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
                 editor.apply(); // commit changes
 
-                //RecipeWidgetService.startActionShowRecipes(mContext);
+                RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
                 intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipe);
