@@ -43,17 +43,23 @@ public class IngredientWidgetService extends RemoteViewsService {
 
     @Override
     public void onDataSetChanged() {
-        //Get the id of the most recently chosen recipe id from shared preferences
-        SharedPreferences pref= mContext.getSharedPreferences(mContext.getResources().getString(R.string.preference_name),0);
-        int recipeId = pref.getInt(mContext.getResources().getString(R.string.preference_recipe_id_key), 0);
 
+        recipes = Preferences.loadRecipe(mContext);
+//        //Get the id of the most recently chosen recipe id from shared preferences
+//        SharedPreferences pref= mContext.getSharedPreferences(mContext.getResources().getString(R.string.preference_name),0);
+//        //int recipeId = pref.getInt(mContext.getResources().getString(R.string.preference_recipe_id_key), 0);
+//        Gson gson = new Gson();
+//        String json = pref.getString(mContext.getResources().getString(R.string.preference_recipe_list_key), "");
+//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+//        return gson.fromJson(json, type);
+        //return gson.fromJson(json, Recipes.class);
         //If there is a recipe id in preferences, get the recipe ingredients  from preferences
-        if(recipeId != 0){
-            String json = pref.getString(mContext.getResources().getString(R.string.preference_recipe_list_key), "");
-            Type type = new TypeToken<List<Ingredients>>() {}.getType();
-            ingredients = gson.fromJson(json, type);
-           // return gson.fromJson(json, type);
-        }
+//        if(recipeId != 0){
+//
+//            Type type = new TypeToken<List<Ingredients>>() {}.getType();
+//            ingredients = gson.fromJson(json, type);
+//           // return gson.fromJson(json, type);
+//        }
     }
 
     @Override
@@ -65,36 +71,13 @@ public class IngredientWidgetService extends RemoteViewsService {
     public int getCount() {
         if (ingredients == null)
             return 1; // if the user hasn't specified a recipe, return a message
-        else return ingredients.size();
+        else return recipes.getmIngredients().size();
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.recipe_widget_provider);
-//        pref = mContext.getSharedPreferences("MyPref", 0); // 0 - for private mode
-//        String json = pref.getString("recipe_list", "");
-//       Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        List<Ingredients> arrayList = gson.fromJson(json, type);
-        SharedPreferences pref = mContext.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = pref.getString("recipe_list", "");
-        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-        ingredients = gson.fromJson(json, type);
-
-
-//        ingredient = ingredients.get(position);
-//
-//        if (ingredient != null) {
-//
-//                    StringBuilder sb = new StringBuilder();
-//                    sb.append(String.valueOf(ingredient.getmQuantity()));// now original string is changed
-//                     sb.append(ingredient.getmMeasure());// now original string is changed
-//                     sb.append(ingredient.getmQuantity());// now original string is changed
-
-
-            remoteViews.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", ingredients));
-
-        //}
+        RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_remote_view);
+        remoteViews.setTextViewText(R.id.remotewidget_baking_ingredientlist, recipes.getmIngredients().get(position).getmIngredient());
         return remoteViews;
     }
 

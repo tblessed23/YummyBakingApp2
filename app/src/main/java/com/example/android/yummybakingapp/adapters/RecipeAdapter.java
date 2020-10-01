@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,6 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         servingsTextView.setText(Integer.toString(recipe.getmServings()));
 
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 //Set-Up Shared Preferences
@@ -97,7 +100,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
                 editor.apply(); // commit changes
 
-                RecipeWidgetService.startActionShowRecipes(mContext);
+                //RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
                 intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipe);

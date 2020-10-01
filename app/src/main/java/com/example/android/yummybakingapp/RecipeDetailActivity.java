@@ -25,8 +25,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_detail);
 
 
-
-
             Intent intent = getIntent();
         if (intent == null) {
             closeOnError();

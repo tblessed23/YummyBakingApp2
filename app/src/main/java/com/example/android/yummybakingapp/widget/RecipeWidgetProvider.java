@@ -109,41 +109,19 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
         // Set the IngredientWidgetService intent to act as the adapter for the view
         Intent intent = new Intent(context, IngredientWidgetService.class);
-        views.setRemoteAdapter(R.id.widget_layout, intent);
+        views.setRemoteAdapter(R.id.widget_baking_ingredientlist, intent);
 
         // Set the RercipeDeListActivity intent to launch when clicked
         Intent appIntent = new Intent(context, RecipeListActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.widget_layout, appPendingIntent);
+        views.setPendingIntentTemplate(R.id.widget_baking_ingredientlist, appPendingIntent);
 
         // Handle no data
-        views.setEmptyView(R.id.widget_layout,R.id.remotewidget_default_text);
+        //views.setEmptyView(R.id.widget_layout,R.id.remotewidget_default_text);
 
         return views;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, RecipeWidgetProvider.class));
 
-        final String action = intent.getAction();
-
-        SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = pref.getString("recipe_list", "");
-        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-        List<Ingredients> arrayList = gson.fromJson(json, type);
-       assert arrayList != null;
-
-
-        assert action != null;
-        if (action.equals("android.appwidget.action.APPWIDGET_UPDATE")) {
-            ingredientList = intent.getStringExtra(String.valueOf(arrayList));
-            recipeName = pref.getString(String.valueOf(R.string.preference_recipe_name_key), "");
-            onUpdate(context, appWidgetManager, appWidgetIds);
-            super.onReceive(context, intent);
-        }
-    }}
+}
 
