@@ -54,13 +54,14 @@ public class IngredientWidgetService extends RemoteViewsService {
     @Override
     public int getCount() {
 
-        return ingredients == null ? 0 : ingredients.size();
+        return recipes == null ? 0 : recipes.getmIngredients().size();
 
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_remote_view);
+
         remoteViews.setTextViewText(R.id.remotewidget_baking_ingredientlist, recipes.getmIngredients().get(position).getmIngredient());
         return remoteViews;
     }

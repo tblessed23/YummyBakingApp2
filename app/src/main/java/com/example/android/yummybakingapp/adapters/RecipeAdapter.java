@@ -82,7 +82,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         textViewAgain.setText(recipes.getmName());
 
         TextView servingsTextView = holder.mServingsView;
-        servingsTextView.setText(Integer.toString(recipes.getmServings()));
+        servingsTextView.setText("Servings: \n" + Integer.toString(recipes.getmServings()));
 
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -91,7 +91,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
        //    Preferences.saveRecipe(mContext, recipes);
                 //Set-Up Shared Preferences
-                pref = mContext.getSharedPreferences(String.valueOf(R.string.preference_name), 0); // 0 - for private mode
+                pref = mContext.getSharedPreferences(mContext.getString(R.string.preference_name), 0); // 0 - for private mode
                 SharedPreferences.Editor editor = pref.edit();
 
                 //Store Data: Shared Preferences
