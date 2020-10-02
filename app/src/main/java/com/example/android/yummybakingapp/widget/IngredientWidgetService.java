@@ -30,7 +30,6 @@ public class IngredientWidgetService extends RemoteViewsService {
     private List<Ingredients> ingredients;
     private Gson gson;
     private SharedPreferences pref;
-    private Ingredients ingredient;
 
     public IngredientRemoteViewsFactory(Context applicationContext) {
         mContext = applicationContext;
