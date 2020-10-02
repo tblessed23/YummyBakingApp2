@@ -18,7 +18,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
-public class FirstPageTest {
+public class RecipeListActivityTest {
     @Rule
     public ActivityTestRule<RecipeListActivity> mActivityTestRule =
             new ActivityTestRule<>(RecipeListActivity.class);
@@ -28,12 +28,6 @@ public class FirstPageTest {
 
         // Check that cardview button work when clicked
         onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-
-        //onView(allof(isDisplayed(), withId(R.id.my_recycler_view)))
-                //.perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
-
-       // onView(withId(R.id.ingredients_TextView)).check(matches(isDisplayed()));
 
 
     }
@@ -53,5 +47,7 @@ public class FirstPageTest {
         // Check that cardview button work when clicked
         onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
     }
+
+
 
 }

@@ -5,11 +5,13 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +38,13 @@ public class RecipeStepsActivityTest {
 
         @Test
         public void clickRecipeFirstStep() {
+
+                onView(withId(R.id.ingredients_TextView))
+                        .inRoot(RootMatchers.withDecorView(
+                                Matchers.is(mActivityTestRule.getActivity().getWindow().getDecorView())
+                        ))
+                        .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
                 // Check that cardview button work when clicked
                 //onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
@@ -51,15 +60,15 @@ public class RecipeStepsActivityTest {
 //                        .
 //                        View.perform(RecyclerViewActions.actionOnItemAtPosition(0, click()))));
         }
-        @Test
-        public void clickRecipeSecondStep() {
-                // Check that cardview button work when clicked
-                onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        }
-        @Test
-        public void clickRecipeThirdStep() {
-                // Check that cardview button work when clicked
-                onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
-        }
+//        @Test
+//        public void clickRecipeSecondStep() {
+//                // Check that cardview button work when clicked
+//                onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+//        }
+//        @Test
+//        public void clickRecipeThirdStep() {
+//                // Check that cardview button work when clicked
+//                onView((withId(R.id.my_recycler_view))).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+//        }
 
 }

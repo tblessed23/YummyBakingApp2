@@ -18,6 +18,7 @@ import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
+import com.example.android.yummybakingapp.widget.Preferences;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 import com.google.gson.Gson;
 
@@ -31,6 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private final Context mContext;
     private List<Recipes> mValues;
     private List<Ingredients> mIngredients;
+
 
 
     public void setRecipeData(List<Recipes> recipes) {
@@ -75,17 +77,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      */
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
-        final Recipes recipe = mValues.get(position);
+        final Recipes recipes = mValues.get(position);
         TextView textViewAgain = holder.mContentView;
-        textViewAgain.setText(recipe.getmName());
+        textViewAgain.setText(recipes.getmName());
 
         TextView servingsTextView = holder.mServingsView;
-        servingsTextView.setText(Integer.toString(recipe.getmServings()));
+        servingsTextView.setText(Integer.toString(recipes.getmServings()));
 
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+
+       //    Preferences.saveRecipe(mContext, recipes);
                 //Set-Up Shared Preferences
                 pref = mContext.getSharedPreferences(String.valueOf(R.string.preference_name), 0); // 0 - for private mode
                 SharedPreferences.Editor editor = pref.edit();
@@ -93,17 +97,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 //Store Data: Shared Preferences
                 Gson gson = new Gson();
 
-                String json = gson.toJson(recipe.getmIngredients());
+                String json = gson.toJson(recipes.getmIngredients());
 
                 editor.putString(String.valueOf(R.string.preference_recipe_list_key), json);
-                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
-                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
+                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipes.getmName()); // Storing boolean - true/false
+                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipes.getmId()); // Storing string
                 editor.apply(); // commit changes
 
                 RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-                intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipe);
+                intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipes);
                 mContext.startActivity(intent);
 
 

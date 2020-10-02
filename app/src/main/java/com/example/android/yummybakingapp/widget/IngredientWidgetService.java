@@ -45,21 +45,6 @@ public class IngredientWidgetService extends RemoteViewsService {
     public void onDataSetChanged() {
 
         recipes = Preferences.loadRecipe(mContext);
-//        //Get the id of the most recently chosen recipe id from shared preferences
-//        SharedPreferences pref= mContext.getSharedPreferences(mContext.getResources().getString(R.string.preference_name),0);
-//        //int recipeId = pref.getInt(mContext.getResources().getString(R.string.preference_recipe_id_key), 0);
-//        Gson gson = new Gson();
-//        String json = pref.getString(mContext.getResources().getString(R.string.preference_recipe_list_key), "");
-//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        return gson.fromJson(json, type);
-        //return gson.fromJson(json, Recipes.class);
-        //If there is a recipe id in preferences, get the recipe ingredients  from preferences
-//        if(recipeId != 0){
-//
-//            Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//            ingredients = gson.fromJson(json, type);
-//           // return gson.fromJson(json, type);
-//        }
     }
 
     @Override
@@ -69,9 +54,9 @@ public class IngredientWidgetService extends RemoteViewsService {
 
     @Override
     public int getCount() {
-        if (ingredients == null)
-            return 1; // if the user hasn't specified a recipe, return a message
-        else return recipes.getmIngredients().size();
+
+        return ingredients == null ? 0 : ingredients.size();
+
     }
 
     @Override

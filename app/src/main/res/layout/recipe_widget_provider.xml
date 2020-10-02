@@ -13,14 +13,15 @@
         android:layout_gravity="center"
         android:textColor="@color/textColor"
         tools:text="123" />
-
-    <TextView
+    <ListView
         android:id="@+id/widget_baking_ingredientlist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/textColor"
-        tools:text="123" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:dividerHeight="1dp"
+        android:textColor="@color/textColor" />
+
 
     <TextView
         android:id="@+id/widget_default_text"

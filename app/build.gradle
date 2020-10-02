@@ -40,6 +40,8 @@ dependencies {
     //For Testing
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.2') {

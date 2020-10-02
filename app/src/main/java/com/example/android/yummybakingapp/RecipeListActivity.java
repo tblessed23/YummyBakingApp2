@@ -1,11 +1,14 @@
 package com.example.android.yummybakingapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.IdlingResource;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import com.example.android.yummybakingapp.network.GetDataService;
 import com.example.android.yummybakingapp.network.NetworkHelper;
 import com.example.android.yummybakingapp.network.RecipesLoader;
 import com.example.android.yummybakingapp.network.RetrofitGetData;
+import com.example.android.yummybakingapp.network.SimpleIdlingResource;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 
 
@@ -52,6 +56,22 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
     private RecyclerView.LayoutManager layoutManager;
     private List<Recipes> mRecipes;
     private static final int RECIPES_LOADER_ID = 1;
+
+    // The Idling Resource which will be null in production.
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    /**
+     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +108,8 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
-
+        // Get the IdlingResource instance
+        getIdlingResource();
     }
 
 
