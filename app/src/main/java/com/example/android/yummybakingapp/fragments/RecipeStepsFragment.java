@@ -50,6 +50,8 @@ private Steps stepsAgain;
 
 TextView ingredientsTextView;
 TextView testtwoingredientsTextView;
+TextView testingredientsTextView;
+SharedPreferences pref;
 
 List<Ingredients> ingredientsList;
 
@@ -108,7 +110,7 @@ OnStepsClickListener mStepsListener;
         assert recipes != null;
         ingredientsList = recipes.getmIngredients();
 
-       // SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+      pref = getContext().getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
 
     }
 
@@ -121,17 +123,20 @@ OnStepsClickListener mStepsListener;
         //Set the Text of the Recipe Object Variables
         ingredientsTextView = rootView.findViewById(R.id.ingredients_TextView);
         ingredientsTextView.setText(TextUtils.join("", ingredientsList));
-//        SharedPreferences pref = getContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-//        Gson gson = new Gson();
-//        String json = pref.getString("recipe_list", "");
-//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        List<Ingredients> arrayList = gson.fromJson(json, type);
-//
-//        //Set the Text of the Movie Object Variables
-//        testtwoingredientsTextView = rootView.findViewById(R.id.ingredientstest_TextView);
-//        assert arrayList != null;
-//        testtwoingredientsTextView.setText(TextUtils.join("", arrayList));
 
+        testingredientsTextView = rootView.findViewById(R.id.ingredientstestname_TextView);
+        testingredientsTextView.setText(pref.getString("recipe_name", null));
+
+        SharedPreferences pref = getContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        Gson gson = new Gson();
+        String json = pref.getString("recipe_list", "");
+        Type type = new TypeToken<List<Ingredients>>() {}.getType();
+        List<Ingredients> arrayList = gson.fromJson(json, type);
+
+        //Set the Text of the Movie Object Variables
+        testtwoingredientsTextView = rootView.findViewById(R.id.ingredientstest_TextView);
+        assert arrayList != null;
+        testtwoingredientsTextView.setText(TextUtils.join("", arrayList));
         // Find a reference to the {@link RecyclerView} in the layout
         recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);

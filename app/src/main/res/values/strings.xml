@@ -22,7 +22,7 @@
     <string name="add_widget">Add widget</string>
 
     <!--Shared Preferences-->
-   <string name="preference_name">ingredient_preference</string>
+   <string name="preference_name">prefs</string>
     <string name="preference_recipe_name_key">recipe_name</string>
     <string name="preference_recipe_id_key">recipe_id</string>
     <string name="preference_recipe_list_key">recipe_list</string>

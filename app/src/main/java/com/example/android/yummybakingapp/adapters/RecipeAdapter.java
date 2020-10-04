@@ -77,12 +77,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      */
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, final int position) {
-        final Recipes recipes = mValues.get(position);
+        final Recipes recipe = mValues.get(position);
         TextView textViewAgain = holder.mContentView;
-        textViewAgain.setText(recipes.getmName());
+        textViewAgain.setText(recipe.getmName());
 
         TextView servingsTextView = holder.mServingsView;
-        servingsTextView.setText("Servings: \n" + Integer.toString(recipes.getmServings()));
+        servingsTextView.setText("Servings: \n" + Integer.toString(recipe.getmServings()));
 
         holder.firstCardview.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -97,21 +97,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 //Store Data: Shared Preferences
                 Gson gson = new Gson();
 
-                String json = gson.toJson(recipes.getmIngredients());
+                String json = gson.toJson(recipe.getmIngredients());
 
                 editor.putString(String.valueOf(R.string.preference_recipe_list_key), json);
-                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipes.getmName()); // Storing boolean - true/false
-                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipes.getmId()); // Storing string
+                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
+                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
                 editor.apply(); // commit changes
 
                 RecipeWidgetService.startActionShowRecipes(mContext);
 
                 Intent intent =  new Intent(mContext, RecipeStepsActivity.class);
-                intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipes);
+                intent.putExtra(mContext.getResources().getString(R.string.intent_key_recipes), recipe);
                 mContext.startActivity(intent);
-
-
-
             }
         });
     }

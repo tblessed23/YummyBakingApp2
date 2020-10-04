@@ -54,7 +54,10 @@ public class IngredientWidgetService extends RemoteViewsService {
     @Override
     public int getCount() {
 
-        return recipes == null ? 0 : recipes.getmIngredients().size();
+        if (ingredients != null)
+        return ingredients.size();
+
+        else return recipes == null ? 0 : recipes.getmIngredients().size();
 
     }
 
