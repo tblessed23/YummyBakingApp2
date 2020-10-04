@@ -18,9 +18,9 @@ import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.model.Ingredients;
 import com.example.android.yummybakingapp.model.Recipes;
-import com.example.android.yummybakingapp.widget.Preferences;
 import com.example.android.yummybakingapp.widget.RecipeWidgetService;
 import com.google.gson.Gson;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     SharedPreferences pref;
     private final Context mContext;
     private List<Recipes> mValues;
-    private List<Ingredients> mIngredients;
+
 
 
 
@@ -97,11 +97,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                 //Store Data: Shared Preferences
                 Gson gson = new Gson();
 
-                String json = gson.toJson(recipe.getmIngredients());
+                String json = gson.toJson(recipe);
 
-                editor.putString(String.valueOf(R.string.preference_recipe_list_key), json);
-                editor.putString(String.valueOf(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
-                editor.putInt(String.valueOf(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
+                editor.putString(mContext.getString(R.string.preference_recipe_list_key), json);
+                editor.putString(mContext.getString(R.string.preference_recipe_name_key), recipe.getmName()); // Storing boolean - true/false
+                editor.putInt(mContext.getString(R.string.preference_recipe_id_key), recipe.getmId()); // Storing string
                 editor.apply(); // commit changes
 
                 RecipeWidgetService.startActionShowRecipes(mContext);

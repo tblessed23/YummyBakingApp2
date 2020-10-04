@@ -12,10 +12,12 @@ import com.example.android.yummybakingapp.R;
 
 
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class RecipeWidgetService extends IntentService {
 
-
+private Context mContext;
     public static final String ACTION_SHOW_RECIPES = "com.example.android.yummybakingapp.action.show_recipes";
+
 
     public RecipeWidgetService() {
         super("RecipeWidgetService");

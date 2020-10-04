@@ -71,8 +71,6 @@ public class Ingredients implements Parcelable {
     }
 
 
-
-
     //Parceling constructor
     public Ingredients(Parcel in) {
         this.quantity= in.readString();

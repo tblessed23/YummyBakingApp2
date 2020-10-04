@@ -101,9 +101,6 @@ public class Recipes implements Parcelable {
         this.servings = servings;
     }
 
-
-
-
     //Parceling constructor
     public Recipes(Parcel in) {
         this.id = in.readInt();

@@ -28,8 +28,7 @@ public class IngredientWidgetService extends RemoteViewsService {
     private Context mContext;
     private Recipes recipes;
     private List<Ingredients> ingredients;
-    private Gson gson;
-    private SharedPreferences pref;
+
 
     public IngredientRemoteViewsFactory(Context applicationContext) {
         mContext = applicationContext;
@@ -64,8 +63,9 @@ public class IngredientWidgetService extends RemoteViewsService {
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_remote_view);
-
+        remoteViews.setTextViewText(R.id.remotewidget_baking_measure, recipes.getmIngredients().get(position).getmMeasure());
         remoteViews.setTextViewText(R.id.remotewidget_baking_ingredientlist, recipes.getmIngredients().get(position).getmIngredient());
+        remoteViews.setTextViewText(R.id.remotewidget_baking_quantity, recipes.getmIngredients().get(position).getmQuantity());
         return remoteViews;
     }
 

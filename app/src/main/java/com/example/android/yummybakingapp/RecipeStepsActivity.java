@@ -16,7 +16,7 @@ import com.example.android.yummybakingapp.fragments.RecipeStepsFragment;
 import com.example.android.yummybakingapp.model.Recipes;
 
 
-import com.example.android.yummybakingapp.widget.RecipeWidgetService;
+
 
 
 
@@ -86,7 +86,7 @@ private boolean mTwoPane;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.recipe_steps_fragment, detailFragment).commit();
 
-        RecipeWidgetService.startActionShowRecipes(getApplicationContext());
+
 
     }
 

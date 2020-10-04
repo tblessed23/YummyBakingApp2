@@ -1,27 +1,14 @@
 package com.example.android.yummybakingapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.RecipeDetailActivity;
-import com.example.android.yummybakingapp.RecipeStepsActivity;
-import com.example.android.yummybakingapp.model.Ingredients;
-import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
@@ -63,12 +50,9 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
 
     public RecipeStepsAdapter(ListItemClickListener mOnClickListener, List<Steps> steps) {
-        //this.mContext = context;
         this.mOnClickListener = mOnClickListener;
         mDataset = steps;
     }
-
-
 
 
     /**

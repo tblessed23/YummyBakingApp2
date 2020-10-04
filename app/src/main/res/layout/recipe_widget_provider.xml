@@ -28,8 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/textColor"
-        android:text="Choose your recipe inside the app!!! Once chosen it will display here!" />
-
-
+        android:text="@string/widget_instructions"/>
 
 </LinearLayout>

@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="#ffeecc"
     android:id="@+id/remotewidget_layout"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/remotewidget_baking_title"
+        android:id="@+id/remotewidget_baking_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_gravity="center"
         android:textColor="@color/textColor"
-        tools:text="123" />
-
-    <TextView
-        android:id="@+id/remotewidget_baking_ingredientlist"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         tools:text="123"
         android:layout_marginLeft="8dp" />
 
 
+    <TextView
+        android:id="@+id/remotewidget_baking_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"
+        tools:text="123"
+        android:layout_marginLeft="8dp" />
+
+
+    <TextView
+        android:id="@+id/remotewidget_baking_ingredientlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/textColor"
+        tools:text="123"
+        android:layout_marginLeft="8dp" />
 </LinearLayout>

@@ -39,7 +39,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
 
         if (recipes == null) {
-            // Movie data unavailable
+            // Recipe data unavailable
             closeOnError();
             return;
         }
@@ -77,9 +77,4 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private void closeOnError() {
         finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
-    }
-
-
-
-
-    }
+    }}

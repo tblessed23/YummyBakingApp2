@@ -34,7 +34,6 @@
             android:textSize="@dimen/text_size"
             tools:ignore="SmallSp"/>
 
-
     </LinearLayout>
 
     <LinearLayout

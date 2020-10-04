@@ -2,6 +2,7 @@
     <string name="app_name">YummyBakingApp</string>
 
     <string name="title_item_detail">Item Detail</string>
+    <string name="widget_instructions">Choose your recipe inside the app!!! Once chosen it will display here!</string>
 
 
     <!-- Error messages-->
@@ -22,7 +23,7 @@
     <string name="add_widget">Add widget</string>
 
     <!--Shared Preferences-->
-   <string name="preference_name">prefs</string>
+   <string name="preference_name">preffs</string>
     <string name="preference_recipe_name_key">recipe_name</string>
     <string name="preference_recipe_id_key">recipe_id</string>
     <string name="preference_recipe_list_key">recipe_list</string>

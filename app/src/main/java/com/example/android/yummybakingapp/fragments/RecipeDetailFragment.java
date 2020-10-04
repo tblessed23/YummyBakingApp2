@@ -84,10 +84,6 @@ public class RecipeDetailFragment extends Fragment {
             stepdetails = recipes.getmSteps().get(position);
 
             stepsList=recipes.getmSteps().get(position).getmVideoUrl();
-
-
-
-
     }
 
     @Override

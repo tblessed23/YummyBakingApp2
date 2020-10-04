@@ -3,26 +3,15 @@ package com.example.android.yummybakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.text.TextUtils;
 import android.widget.RemoteViews;
-
 import androidx.annotation.RequiresApi;
-
 import com.example.android.yummybakingapp.R;
-import com.example.android.yummybakingapp.RecipeDetailActivity;
 import com.example.android.yummybakingapp.RecipeListActivity;
-import com.example.android.yummybakingapp.RecipeStepsActivity;
 import com.example.android.yummybakingapp.model.Ingredients;
-import com.example.android.yummybakingapp.model.Recipes;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -41,35 +30,10 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         RemoteViews views = getIngredientsGridRemoteView(context);
 
         //Get the id and name of the last chosen recipe from the preferences
-        SharedPreferences pref = context.getSharedPreferences(String.valueOf(R.string.preference_name), Context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(context.getString(R.string.preference_name), Context.MODE_PRIVATE);
 
-        String recipeName = pref.getString(String.valueOf(R.string.preference_recipe_name_key), "");
+        String recipeName = pref.getString(context.getString(R.string.preference_recipe_name_key), "");
         views.setTextViewText(R.id.widget_baking_title, recipeName);
-
-//        Gson gson = new Gson();
-//        String json = pref.getString("recipe_list", "");
-//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        List<Ingredients> arrayList = gson.fromJson(json, type);
-//        assert arrayList != null;
-//
-//
-//        views.setTextViewText(R.id.widget_baking_ingredientlist, (CharSequence) arrayList);
-
-
-//        SharedPreferences.Editor editor = pref.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(ingredientsList);
-//        editor.putString("recipe_list", json);
-//        editor.apply(); // commit changes
-//
-//
-//        String jsontwo = pref.getString("recipe_list", "");
-//        Type type = new TypeToken<List<Ingredients>>() {}.getType();
-//        List<Ingredients> arrayList = gson.fromJson(jsontwo, type);
-
-
-//        assert arrayList != null;
-//        views.setTextViewText(R.id.widget_baking_ingredientlist, TextUtils.join("", arrayList));
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -111,13 +75,13 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         Intent intent = new Intent(context, IngredientWidgetService.class);
         views.setRemoteAdapter(R.id.widget_baking_ingredientlist, intent);
 
-        // Set the RercipeDeListActivity intent to launch when clicked
+        // Set the RecipeDeListActivity intent to launch when clicked
         Intent appIntent = new Intent(context, RecipeListActivity.class);
         PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_baking_ingredientlist, appPendingIntent);
 
         // Handle no data
-        //views.setEmptyView(R.id.widget_layout,R.id.remotewidget_default_text);
+        views.setEmptyView(R.id.widget_layout,R.id.widget_default_text);
 
         return views;
     }
