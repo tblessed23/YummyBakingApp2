@@ -58,9 +58,9 @@ dependencies {
         implementation "androidx.cardview:cardview:1.0.0"
 
         //Exoplayer
-        implementation 'com.google.android.exoplayer:exoplayer-core:2.11.5'
-        implementation 'com.google.android.exoplayer:exoplayer-dash:2.11.5'
-        implementation 'com.google.android.exoplayer:exoplayer-ui:2.11.5'
+        implementation 'com.google.android.exoplayer:exoplayer-core:2.12.0'
+        implementation 'com.google.android.exoplayer:exoplayer-dash:2.12.0'
+        implementation 'com.google.android.exoplayer:exoplayer-ui:2.12.0'
 
         //Recylerview
         implementation 'androidx.recyclerview:recyclerview:1.1.0'

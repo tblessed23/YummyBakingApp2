@@ -16,7 +16,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private Recipes recipes;
     private Steps steps;
-
     int position;
 
     @Override
@@ -55,11 +54,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
 
         bundle.putInt(getResources().getString(R.string.intent_key_steps_position), position);
-        ;
 
         // Only create new fragments when there is no previously saved state
         if(savedInstanceState == null) {
-        // Create a new head RecipeDetailFragment
+
+
+
+        // Create a new RecipeDetailFragment
         RecipeDetailFragment stepinstructionFragment = new RecipeDetailFragment();
         stepinstructionFragment.setArguments(bundle);
 
@@ -74,7 +75,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     }
 
+
     private void closeOnError() {
-        finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }}

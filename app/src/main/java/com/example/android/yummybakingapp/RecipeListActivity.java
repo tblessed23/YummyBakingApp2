@@ -178,7 +178,6 @@ public class RecipeListActivity extends AppCompatActivity implements LoaderManag
     }
 
     private void closeOnError() {
-        finish();
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 

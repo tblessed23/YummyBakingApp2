@@ -25,9 +25,9 @@ public class RecipeStepsActivity extends AppCompatActivity implements RecipeStep
 
 
 private Recipes recipes;
-
+public static final String ROTATION_KEY="rotationKey";
 private boolean mTwoPane;
-
+    boolean rotationInfo;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -35,7 +35,9 @@ private boolean mTwoPane;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps);
-
+        if (savedInstanceState != null) {
+            rotationInfo = savedInstanceState.getBoolean(ROTATION_KEY);
+        }
 
         //Intent for recipe data
 
@@ -134,4 +136,14 @@ private boolean mTwoPane;
         intent.putExtra(getResources().getString(R.string.intent_key_steps_position), position);
         startActivity(intent);
     }
-}}
+
+
+}
+
+    @Override
+    protected void onSaveInstanceState(Bundle presentState) {
+        super.onSaveInstanceState(presentState);
+        presentState.getBoolean(ROTATION_KEY, rotationInfo);
+    }
+
+}

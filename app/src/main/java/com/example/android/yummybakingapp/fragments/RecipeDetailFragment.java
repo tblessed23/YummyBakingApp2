@@ -16,12 +16,10 @@ import android.widget.TextView;
 import com.example.android.yummybakingapp.R;
 import com.example.android.yummybakingapp.model.Recipes;
 import com.example.android.yummybakingapp.model.Steps;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
@@ -34,26 +32,21 @@ public class RecipeDetailFragment extends Fragment {
     private String stepsList;
     Steps stepdetails;
     int position;
-
     Uri videoLink;
 
     TextView stepinstructionTextView;
+
 
     //Exoplayer Variables
     private SimpleExoPlayer player;
     protected PlayerView mPlayerView;
     private boolean playWhenReady;
-    private int currentWindow;
-    private long playbackPosition;
+    private int currentWindow = 0;
+    private long playbackPosition = 0;
 
 
     // Tag for logging
     private static final String TAG = "RecipeDetailFragment";
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
 
 
     // Saved instance state keys.
@@ -78,9 +71,6 @@ public class RecipeDetailFragment extends Fragment {
 
         }
 
-
-
-
             stepdetails = recipes.getmSteps().get(position);
 
             stepsList=recipes.getmSteps().get(position).getmVideoUrl();
@@ -91,6 +81,7 @@ public class RecipeDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+
 
         //Saved Instance State
         if(savedInstanceState != null) {
@@ -105,7 +96,6 @@ public class RecipeDetailFragment extends Fragment {
 
         // Get a reference to the TextView in the fragment layout
         stepinstructionTextView = (TextView) rootView.findViewById(R.id.step_detail_text_view);
-
         videoLink =  Uri.parse(recipes.getmSteps().get(position).getmVideoUrl());
 
 
@@ -131,7 +121,7 @@ public class RecipeDetailFragment extends Fragment {
                     }
 
                     stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
-                    initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
+                    initializePlayer();
 
                 }
             });
@@ -152,7 +142,7 @@ public class RecipeDetailFragment extends Fragment {
                 }
 
                 stepinstructionTextView.setText(recipes.getmSteps().get(position).getmDescription());
-                initializePlayer(Uri.parse(recipes.getmSteps().get(position).getmVideoUrl()));
+                initializePlayer();
 
             }
         });
@@ -167,16 +157,14 @@ public class RecipeDetailFragment extends Fragment {
 
        }
 
-
-
-        return rootView;
+       return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         if (Util.SDK_INT >= 24) {
-            initializePlayer(videoLink);
+            initializePlayer();
         }
     }
 
@@ -185,14 +173,20 @@ public class RecipeDetailFragment extends Fragment {
         super.onResume();
         hideSystemUi();
         if ((Util.SDK_INT < 24 || player == null)) {
-            initializePlayer(videoLink);
+            if(playbackPosition!=0 && player!=null){
+                player.seekTo(playbackPosition);}
+            initializePlayer();
         }
     }
+
+
 
     @Override
     public void onPause() {
         super.onPause();
-        if (Util.SDK_INT < 24) {
+        if (player!=null) {
+            player.stop();
+            playbackPosition = player.getCurrentPosition();
             releasePlayer();
         }
     }
@@ -201,25 +195,23 @@ public class RecipeDetailFragment extends Fragment {
     public void onStop() {
         super.onStop();
         if (Util.SDK_INT < 24) {
-            releasePlayer();
+            initializePlayer();
+            if(playbackPosition!=0){
+                player.seekTo(playbackPosition);
+            }
         }
     }
 
     //*****************************Begin Exoplayer*****************************************************//
-    private void initializePlayer(Uri videoLink) {
+    private void initializePlayer() {
         player = new SimpleExoPlayer.Builder(getActivity()).build();
         mPlayerView.setPlayer(player);
-        MediaSource mediaSource = buildMediaSource(videoLink);
+        MediaItem mediaItem = MediaItem.fromUri(videoLink);
+        player.setMediaItem(mediaItem);
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
-        player.prepare(mediaSource, true, true);
-    }
-    private MediaSource buildMediaSource(Uri uri) {
-        String userAgent = Util.getUserAgent(getActivity(), "YummyBakingApp");
-        DataSource.Factory dataSourceFactory =
-                new DefaultDataSourceFactory(getActivity(), userAgent);
-        return new ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(uri);
+        player.prepare();
+
     }
 
     @SuppressLint("InlinedApi")
@@ -240,6 +232,7 @@ public class RecipeDetailFragment extends Fragment {
         }
     }
 
+
     //*********************************End Exoplayer********************************************//
 
     /**
@@ -249,6 +242,10 @@ public class RecipeDetailFragment extends Fragment {
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putInt(EXO_CURRENT_WINDOW, currentWindow);
         currentState.putBoolean(EXO_PLAY_WHEN_READY, playWhenReady);
+
+        //Save current position before rotation
         currentState.putLong(EXO_PLAYBACK_POSITION, playbackPosition);
     }
+
+
 }

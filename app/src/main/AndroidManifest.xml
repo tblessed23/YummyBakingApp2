@@ -13,7 +13,10 @@
         <activity
             android:name=".RecipeDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:parentActivityName=".RecipeDetailActivity" />
+            android:parentActivityName=".RecipeDetailActivity"
+
+
+            />
         <activity
             android:name=".RecipeStepsActivity"
             android:parentActivityName=".RecipeListActivity" />
