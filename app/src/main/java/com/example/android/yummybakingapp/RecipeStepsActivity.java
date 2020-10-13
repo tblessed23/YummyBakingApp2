@@ -134,7 +134,7 @@ private boolean mTwoPane;
 
         intent.putExtras(b);
         intent.putExtra(getResources().getString(R.string.intent_key_steps_position), position);
-        startActivity(intent);
+        startActivity(intent); kmk
     }
 
 
